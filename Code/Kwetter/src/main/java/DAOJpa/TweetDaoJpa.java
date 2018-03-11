@@ -41,29 +41,27 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     public List<Tweet> getMatchesByContent(String content) {
         if (content == null)
             return new ArrayList<>();
-
-        return getListByQuery("select t from Tweet t where t.content LIKE '%" + content + "%'");
+        return spareUnnecessaryWork("select t from Tweet t where t.content LIKE '%" + content + "%'");
     }
 
     @Override
     public List<Tweet> getTweetsByHashtagId(long id) {
         if (id >= 0)
-            return getListByQuery("select t from Tweet t where t.id = (select x.tweet_hashtag_id from tweet_hashtag x where x.hashtag_hashtag_id = " + id + ")");
+            return spareUnnecessaryWork("select t from Tweet t where t.id = (select x.tweet_hashtag_id from tweet_hashtag x where x.hashtag_hashtag_id = " + id + ")");
         return new ArrayList<>();
     }
 
     @Override
     public List<Tweet> getTweetsByMentionId(long id) {
-        if (id >= 0) {
-            return getListByQuery("select t from Tweet t where t.content LIKE '%@ (select user.name from user u where u.id = " + id + ") %'");
-        }
+        if (id >= 0) 
+            return spareUnnecessaryWork("select t from Tweet t where t.content LIKE '%@ (select user.name from user u where u.id = " + id + ") %'");
         return new ArrayList<>();
     }
     
     @Override
     public List<Tweet> getRecentTweetsByUserId(long id) {
         if (id >= 0)
-            return getListByQuery("select t from Tweet t where t.owner.id = " + id + " order by t.timestamp desc");
+            return spareUnnecessaryWork("select t from Tweet t where t.owner.id = " + id + " order by t.timestamp desc");
         return new ArrayList<>();
     }
     
@@ -82,7 +80,7 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
          return  new ArrayList<>(query.getResultList());
     }
     
-    public List<Tweet> getListByQuery(String query) {
+    public List<Tweet> spareUnnecessaryWork(String query) {
         if (query == null || query.isEmpty())
             return new ArrayList<>();
 

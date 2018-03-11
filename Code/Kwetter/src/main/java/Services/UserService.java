@@ -102,6 +102,15 @@ public class UserService {
         tweetDao.findById(tweetId).addLike(userDao.findById(id));
     }
     
+    public List<User> getLeaders(long id)
+    {
+        return userDao.findById(id).getLeaders();
+    }
+    
+    public List<User> getFollowers(long id)
+    {
+        return userDao.findById(id).getFollowers();
+    }
     
     public UserService(){
 

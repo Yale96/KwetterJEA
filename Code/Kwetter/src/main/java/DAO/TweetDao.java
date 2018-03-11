@@ -1,0 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DAO;
+
+import Models.Profile;
+import Models.Tweet;
+import Models.User;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Yannick van Leeuwen
+ */
+public interface TweetDao {
+    void create(Tweet tweet);
+    
+    List<Tweet> getMatchesByContent(String inhoud);
+    
+    List<Tweet> getTweetsByHashtagId(long id);
+    
+    List<Tweet> getTweetsByMentionId(long id);
+    
+    public List<Tweet> getRecentTweetsByUserId(long id);
+
+    Tweet findById(Long id);
+
+    ArrayList<Tweet> getTweets();
+}

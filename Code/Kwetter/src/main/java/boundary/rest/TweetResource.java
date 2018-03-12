@@ -5,6 +5,7 @@
  */
 package boundary.rest;
 
+import Models.HashTag;
 import Models.Profile;
 import Models.Tweet;
 import Models.User;
@@ -55,6 +56,24 @@ public class TweetResource {
 
         tweetService.getMatchesByContent(content);
         return Response.ok(tweetService.getMatchesByContent(content)).build();
+    }
+    
+    @POST
+    @Path("/getMentionedUsers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMentionedUsers(@FormParam("content") String content, @Context HttpServletResponse response) {
+
+        tweetService.findHashtagsByPureContent(content);
+        return Response.ok(tweetService.findMentions(content)).build();
+    }
+    
+    @POST
+    @Path("/getPureContent")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPureContent(@FormParam("content") String content, @Context HttpServletResponse response) {
+
+        tweetService.findHashtagsByPureContent(content);
+        return Response.ok(tweetService.findHashtagsByPureContent(content)).build();
     }
 
     @GET

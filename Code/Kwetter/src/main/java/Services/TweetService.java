@@ -90,11 +90,11 @@ public class TweetService {
                     hashtagContent = content;
                     content = "";
                 }
-                if (tagDao.getMatchesByContent(hashtagContent.substring(1)) == null)
-                    pushHashtag(hashtagContent.substring(1));
+                if (tagDao.getByContent(hashtagContent) == null)
+                    pushHashtag(hashtagContent);
 
-                if (hashtags.stream().filter(h->h.getId() == tagDao.getByContent(hashtagContent.substring(1)).getId()).findAny().orElse(null) == null)
-                    hashtags.add(tagDao.getByContent(hashtagContent.substring(1)));
+                if (hashtags.stream().filter(h->h.getId() == tagDao.getByContent(hashtagContent).getId()).findAny().orElse(null) == null)
+                    hashtags.add(tagDao.getByContent(hashtagContent));
             }
         }
         return hashtags;
@@ -110,18 +110,18 @@ public class TweetService {
         tweet.setOwner(userDao.findById(id));
         tweet.setTimeStamp(new Date());
         tweetDao.create(tweet);
-//        List<HashTag> tags = findHashtagsByPureContent(inhoud);
-//        tags.forEach(h -> {
-//            if (h != null)
-//                tweet.addHashTag(h);
-//                
-//        });
-//        List<User> mentions = findMentions(inhoud);
-//        mentions.forEach(m -> {
-//            if (m != null) {
-//                tweet.addMention(m);
-//            }
-//        });
+        List<HashTag> tags = findHashtagsByPureContent(inhoud);
+        tags.forEach(h -> {
+            if (h != null)
+                tweet.addHashTag(h);
+                
+        });
+        List<User> mentions = findMentions(inhoud);
+        mentions.forEach(m -> {
+            if (m != null) {
+                tweet.addMention(m);
+            }
+        });
         tweetDao.edit(tweet);
     }
     

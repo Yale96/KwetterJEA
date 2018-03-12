@@ -52,7 +52,7 @@ public class HashTagDaoJpa extends DaoFacade<HashTag> implements HashTagDao {
             return null;
 
         try {
-            return (HashTag) em.createQuery("select h from HashTag h where h.content = '" + content + "'").getSingleResult();
+            return (HashTag) em.createQuery("select h from HashTag h where h.content like '" + content + "'").getSingleResult();
         }
         catch (Exception x) {
             return null;
@@ -65,7 +65,7 @@ public class HashTagDaoJpa extends DaoFacade<HashTag> implements HashTagDao {
             return new ArrayList<>();
 
         try {
-            return (List<HashTag>) em.createQuery("select h from HashTag h where h.content like '%" + content + "%'").getResultList();
+            return (List<HashTag>) em.createQuery("select h from HashTag h where h.content like '" + content + "'").getResultList();
         }
         catch (Exception x) {
             return new ArrayList<>();

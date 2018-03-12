@@ -38,12 +38,19 @@ public class StartUp {
     @PostConstruct
     private void intData(){
         Profile pOne = new Profile("TestOne", "TestOne", "TestOne", "TestOne", "TestOne");
+        Profile pTwo = new Profile("TestTwo", "TestTwo", "TestTwo", "TestTwo", "TestTwo");
+        Profile pThree = new Profile("TestThree", "TestThree", "TestThree", "TestThree", "TestThree");
         
         User uOne = new User("yannickvanleeuwen@i-lion.nl", "", "Yale96", "Admin");
         uOne.setPassword("Yannick");
         User uTwo = new User("dennisvanleeuwen@i-lion.nl", "", "Dendi78", "Admin");
         uTwo.setPassword("Dennis");
+        User uThree = new User("renevanleeuwen@i-lion.nl", "", "Rene78", "Admin");
+        uThree.setPassword("Rene");
+        
         uOne.setProfile(pOne);
+        uTwo.setProfile(pTwo);
+        uThree.setProfile(pThree);
         
         Tweet tOne = new Tweet("Test", new Date());
         
@@ -51,8 +58,11 @@ public class StartUp {
         
         uService.addUser(uOne);
         uService.addUser(uTwo);
+        uService.addUser(uThree);
         
         pService.addProfile(pOne);
+        pService.addProfile(pTwo);
+        pService.addProfile(pThree);
         
         tService.addTweet(tOne);
         

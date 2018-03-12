@@ -33,7 +33,7 @@ public class HashTag implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String content;
 
     @ManyToMany(mappedBy="hashtags", cascade = { CascadeType.MERGE, CascadeType.PERSIST})

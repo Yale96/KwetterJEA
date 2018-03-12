@@ -42,7 +42,7 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
             return null;
 
         try {
-            return (User) em.createQuery("select u from User u where u.name = '" + name + "'").getSingleResult();
+            return (User) em.createQuery("select u from User u where u.username = '" + name + "'").getSingleResult();
         }
         catch (Exception x) {
             return null;

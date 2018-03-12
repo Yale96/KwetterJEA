@@ -132,7 +132,13 @@ public class UserService {
         return userDao.findById(id).getFollowers();
     }
     
+    public User getByName(String name) {
+        return userDao.getByName(name);
+    }
+    
     public UserService(){
 
     }
+
+    
 }

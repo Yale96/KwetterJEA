@@ -114,6 +114,7 @@ public class TweetService {
 //        tags.forEach(h -> {
 //            if (h != null)
 //                tweet.addHashTag(h);
+//                
 //        });
 //        List<User> mentions = findMentions(inhoud);
 //        mentions.forEach(m -> {

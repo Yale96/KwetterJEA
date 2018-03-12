@@ -15,6 +15,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.PUT;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -40,4 +45,34 @@ public class UserResource {
         User user = userService.getById(id);
         return user;
     }
+    
+   @PUT
+   @Path("/edit/role")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public Response updateRole(@Context HttpHeaders httPheaders, User u)
+   {
+      userService.editMail(u.getId(), u.getEmail());
+      return Response.ok(userService.getUsers()).build();
+   }
+   
+//   @PUT
+//   @Path("/edit/mail")
+//   @Produces(MediaType.APPLICATION_JSON)
+//   @Consumes(MediaType.APPLICATION_JSON)
+//   public Response updateMail(@Context HttpHeaders httPheaders, User u)
+//   {
+//      profileService.editProfilePicture(p.getId(), p.getPicture());
+//      return Response.ok(profileService.getProfiles()).build();
+//   }
+//   
+//   @PUT
+//   @Path("/edit/username")
+//   @Produces(MediaType.APPLICATION_JSON)
+//   @Consumes(MediaType.APPLICATION_JSON)
+//   public Response updateUserName(@Context HttpHeaders httPheaders, User u)
+//   {
+//      profileService.editProfilePicture(p.getId(), p.getPicture());
+//      return Response.ok(profileService.getProfiles()).build();
+//   }
 }

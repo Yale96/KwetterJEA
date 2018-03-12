@@ -16,6 +16,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -34,16 +35,77 @@ import javax.ws.rs.core.Response;
 @Path("tweets")
 @Stateless
 public class TweetResource {
+
     @Inject
     private TweetService tweetService;
-    
+
     @Inject
     private UserService userService;
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Tweet> getAll() {
         return tweetService.getTweets();
+    }
+
+    @GET
+    @Path("/bycontent/{content}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTweetsByContent(@PathParam("content") String content, @Context HttpServletResponse response) {
+
+        tweetService.getMatchesByContent(content);
+        return Response.ok(tweetService.getMatchesByContent(content)).build();
+    }
+
+    @GET
+    @Path("/hashtagid/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTweetsByHashtagId(@PathParam("id") long id, @Context HttpServletResponse response) {
+
+        tweetService.getTweetByHashtagId(id);
+        return Response.ok(tweetService.getTweetByHashtagId(id)).build();
+    }
+
+    @GET
+    @Path("/mentionid/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTweetsByMentionId(@PathParam("id") long id, @Context HttpServletResponse response) {
+
+        tweetService.getTweetsByMentionId(id);
+        return Response.ok(tweetService.getTweetsByMentionId(id)).build();
+    }
+
+    @GET
+    @Path("/userid/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTweetsByUserId(@PathParam("id") long id, @Context HttpServletResponse response) {
+        tweetService.getTweetsByUserId(id);
+        return Response.ok(tweetService.getTweetsByUserId(id)).build();
+    }
+
+    @GET
+    @Path("/userid/recent/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRecentTweetsByUserId(@PathParam("id") long id, @Context HttpServletResponse response) {
+        tweetService.getRecentTweetsByUserId(id);
+        return Response.ok(tweetService.getRecentTweetsByUserId(id)).build();
+    }
+
+    @GET
+    @Path("/leadertweets/userid/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRecentLeaderTweetsByUserId(@PathParam("id") long id, @Context HttpServletResponse response) {
+
+        userService.getOwnAndOthersTweets(id);
+        return Response.ok(userService.getOwnAndOthersTweets(id)).build();
+    }
+
+    @GET
+    @Path("/hashtagcontent/{content}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTrendingTopics(@PathParam("content") String content, @Context HttpServletResponse response) {
+        tweetService.getTrendingToppics(content);
+        return Response.ok(tweetService.getTweets()).build();
     }
 
     @GET
@@ -53,14 +115,48 @@ public class TweetResource {
         Tweet tweet = tweetService.getById(id);
         return tweet;
     }
-    
+
+    @POST
+    @Path("/like")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response likeTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+        User poster = userService.getByName(name);
+        Tweet tweet = tweetService.getById(tweetId);
+        poster.addLike(tweet);
+        userService.edit(poster);
+        tweetService.editTweet(tweet);
+        return Response.ok(tweetService.getTweets()).build();
+    }
+
+    @POST
+    @Path("/dislike")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response dislikeTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+        User poster = userService.getByName(name);
+        Tweet tweet = tweetService.getById(tweetId);
+        poster.removeLike(tweet);
+        userService.edit(poster);
+        tweetService.editTweet(tweet);
+        return Response.ok(tweetService.getTweets()).build();
+    }
+
     @POST
     @Path("/post")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response)
-    {
+    public Response addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
+        return Response.ok(tweetService.getTweets()).build();
+    }
+
+    @POST
+    @Path("/remove")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
+        User poster = tweetService.getById(id).getOwner();
+        poster.removeTweet(tweetService.getById(id));
+        tweetService.removeTweet(id);
+        userService.edit(poster);
         return Response.ok(tweetService.getTweets()).build();
     }
 }

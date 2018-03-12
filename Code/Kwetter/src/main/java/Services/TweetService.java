@@ -35,7 +35,12 @@ public class TweetService {
     
     @Inject @JPA
     private HashTagDao tagDao;
-
+    
+    public void editTweet(Tweet tweet)
+    {
+        tweetDao.edit(tweet);
+    }
+    
     public void addTweet(Tweet tweet) {
         tweetDao.create(tweet);
     }
@@ -119,8 +124,13 @@ public class TweetService {
         tweetDao.edit(tweet);
     }
     
-    public List<Tweet> getKweetsByMentionId(long id) {
+    public List<Tweet> getTweetsByMentionId(long id) {
         List<Tweet> kweets = tweetDao.getTweetsByMentionId(id);
+        return kweets;
+    }
+    
+    public List<Tweet> getTweetsByUserId(long id) {
+        List<Tweet> kweets = tweetDao.getTweetsByUserId(id);
         return kweets;
     }
 

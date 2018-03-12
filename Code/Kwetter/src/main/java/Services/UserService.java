@@ -44,7 +44,6 @@ public class UserService {
     public void addUser(User user) {
         userDao.create(user);
     }
-
     public List<User> getUsers() {
         return userDao.getUsers();
     }
@@ -120,6 +119,11 @@ public class UserService {
     
     public void addLike(long id, long tweetId) {
         tweetDao.findById(tweetId).addLike(userDao.findById(id));
+    }
+    
+    public void removeLike(long id, long tweetId)
+    {
+        tweetDao.findById(tweetId).removeLike(userDao.findById(id));
     }
     
     public List<User> getLeaders(long id)

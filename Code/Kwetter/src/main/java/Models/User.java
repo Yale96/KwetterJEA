@@ -43,22 +43,22 @@ public class User implements Serializable {
     @JoinTable(name = "user_leaders",
              joinColumns = @JoinColumn(name = "super_id", referencedColumnName = "id", nullable = false),
              inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id", nullable = false))
-    private ArrayList<User> supers;
+    private List<User> supers;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_followers",
              joinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id", nullable = false),
              inverseJoinColumns = @JoinColumn(name = "super_id", referencedColumnName = "id", nullable = false))
-    private ArrayList<User> followers;
+    private List<User> followers;
 
     @ManyToMany(mappedBy = "likes", cascade = CascadeType.MERGE)
-    private ArrayList<Tweet> likes;
+    private List<Tweet> likes;
 
     @ManyToMany(mappedBy = "mentionedUsers", cascade = CascadeType.MERGE)
-    private ArrayList<Tweet> mentions;
+    private List<Tweet> mentions;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.MERGE)
-    private ArrayList<Tweet> tweets;
+    private List<Tweet> tweets;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
@@ -148,7 +148,7 @@ public class User implements Serializable {
         this.password = (hashstring == null || hashstring.isEmpty()) ? password : hashstring;
     }
 
-    public ArrayList<User> getLeaders() {
+    public List<User> getLeaders() {
         return supers;
     }
 
@@ -156,7 +156,7 @@ public class User implements Serializable {
         this.supers = leaders;
     }
 
-    public ArrayList<User> getFollowers() {
+    public List<User> getFollowers() {
         return followers;
     }
 
@@ -164,7 +164,7 @@ public class User implements Serializable {
         this.followers = followers;
     }
 
-    public ArrayList<Tweet> getLikes() {
+    public List<Tweet> getLikes() {
         return likes;
     }
 
@@ -172,7 +172,7 @@ public class User implements Serializable {
         this.likes = likes;
     }
 
-    public ArrayList<Tweet> getMentions() {
+    public List<Tweet> getMentions() {
         return mentions;
     }
 
@@ -180,7 +180,7 @@ public class User implements Serializable {
         this.mentions = mentions;
     }
 
-    public ArrayList<Tweet> getTweets() {
+    public List<Tweet> getTweets() {
         return tweets;
     }
 
@@ -188,7 +188,7 @@ public class User implements Serializable {
         this.tweets = tweets;
     }
 
-    public ArrayList<User> getSupers() {
+    public List<User> getSupers() {
         return supers;
     }
 

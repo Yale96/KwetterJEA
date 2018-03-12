@@ -97,10 +97,9 @@ public class Tweet implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
-//        if(!owner.getTweets().contains(this) || owner.getTweets() == null)
+//        if(!owner.getTweets().contains(this))
 //        {
 //            owner.addTweet(this);
-//        }
     }
     
     public long getId() {

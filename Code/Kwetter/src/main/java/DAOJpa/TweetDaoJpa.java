@@ -43,7 +43,15 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
             return new ArrayList<>();
         return spareUnnecessaryWork("select t from Tweet t where t.content LIKE '%" + content + "%'");
     }
-
+    
+    @Override
+    public List<Tweet> getTweetsByUserId(long id)
+    {
+        if (id >= 0)
+            return spareUnnecessaryWork("select t from Tweet t where t.owner_id = " + id + "");
+        return new ArrayList<>();
+    }
+    
     @Override
     public List<Tweet> getTweetsByHashtagId(long id) {
         if (id >= 0)
@@ -61,7 +69,7 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     @Override
     public List<Tweet> getRecentTweetsByUserId(long id) {
         if (id >= 0)
-            return spareUnnecessaryWork("select t from Tweet t where t.owner.id = " + id + " order by t.timestamp desc");
+            return spareUnnecessaryWork("select t from Tweet t where t.owner_id = " + id + " order by t.timestamp desc");
         return new ArrayList<>();
     }
     

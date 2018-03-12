@@ -20,11 +20,13 @@ public interface TweetDao {
     
     List<Tweet> getMatchesByContent(String inhoud);
     
+    List<Tweet> getTweetsByUserId(long id);
+    
     List<Tweet> getTweetsByHashtagId(long id);
     
     List<Tweet> getTweetsByMentionId(long id);
     
-    public List<Tweet> getRecentTweetsByUserId(long id);
+    List<Tweet> getRecentTweetsByUserId(long id);
     
     void edit(Tweet tweet);
 

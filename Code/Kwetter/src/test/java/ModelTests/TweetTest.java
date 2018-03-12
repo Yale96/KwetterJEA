@@ -83,6 +83,7 @@ public class TweetTest {
         Tweet tOne = new Tweet();
         HashTag hOne = new HashTag();
         
+        uOne.addTweet(tOne);
         tOne.addLike(uOne);
         tOne.addMention(uOne);
         tOne.addHashTag(hOne);

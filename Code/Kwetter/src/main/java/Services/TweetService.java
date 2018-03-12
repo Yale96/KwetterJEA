@@ -48,6 +48,16 @@ public class TweetService {
         return tweetDao.findById(id);
     }
     
+    public HashTag pushHashtag(String content) {
+        if (tagDao.getByContent(content) != null)
+            return tagDao.getByContent(content);
+
+        HashTag hashtag = new HashTag();
+        hashtag.setContent(content);
+        tagDao.create(hashtag);
+        return hashtag;
+    }
+    
     public List<Tweet> getMatchesByContent(String content) {
         return tweetDao.getMatchesByContent(content);
     }
@@ -58,49 +68,56 @@ public class TweetService {
             return tweetDao.getTweetsByHashtagId(hashtag.getId());
         return new ArrayList<>();
     }
+    
+    public List<HashTag> findHashtagsByPureContent(String content) {
+        List<HashTag> hashtags = new ArrayList<>();
+        int count = content.length() - content.replace("#", "").length();
+        for (int i = 0; i < count; i++) {
+            if (content.contains("#")) {
+                int startPos = content.indexOf('#');
+                content = content.substring(startPos);
+                int endPos = content.substring(1).indexOf(' ');
+                String hashtagContent;
+                if (endPos > -1) {
+                    hashtagContent = content.substring(0, endPos + 1);
+                    content = content.substring(endPos + 1);
+                } else {
+                    hashtagContent = content;
+                    content = "";
+                }
+                if (tagDao.getMatchesByContent(hashtagContent.substring(1)) == null)
+                    pushHashtag(hashtagContent.substring(1));
+
+                if (hashtags.stream().filter(h->h.getId() == tagDao.getByContent(hashtagContent.substring(1)).getId()).findAny().orElse(null) == null)
+                    hashtags.add(tagDao.getByContent(hashtagContent.substring(1)));
+            }
+        }
+        return hashtags;
+    }
 
     public List<Tweet> getTweetByHashtagId(long id) {
         return tweetDao.getTweetsByHashtagId(id);
     }
     
-    
-//    public Kweet sendNewTweet(long id, String inhoud) {
-//        Kweet kweet = new Kweet();
-//        kweet.setInhoud(inhoud);
-//        kweet.setEigenaar(kwetteraarBaseService.getKwetteraar(id));
-//        kweet.setDatum(new Date());
-//        kweetBaseService.saveKweet(kweet);
-//        List<Hashtag> hashtags = findHashtags(inhoud);
-//        hashtags.forEach(h -> {
+    public void sendNewTweet(long id, String inhoud) {
+        Tweet tweet = new Tweet();
+        tweet.setContent(inhoud);
+        tweet.setOwner(userDao.findById(id));
+        tweet.setTimeStamp(new Date());
+        tweetDao.create(tweet);
+//        List<HashTag> tags = findHashtagsByPureContent(inhoud);
+//        tags.forEach(h -> {
 //            if (h != null)
-//                kweet.addHashtag(h);
+//                tweet.addHashTag(h);
 //        });
-//        List<Kwetteraar> mentions = findMentions(inhoud);
+//        List<User> mentions = findMentions(inhoud);
 //        mentions.forEach(m -> {
 //            if (m != null) {
-//                kweet.addMention(m);
+//                tweet.addMention(m);
 //            }
 //        });
-//        return tweetDao.updateKweet(tweet);
-//    }
-//
-//    //Tweets van user and leaders
-//    public List<Kweet> getOwnAndOthersTweets(long id) {
-//        List<Kweet> kweets = new ArrayList<>();
-//        List<Kwetteraar> leiders = kwetteraarBaseService.getLeiders(id);
-//        for (int i = 0; i < leiders.size(); i++) {
-//            Kwetteraar kwetteraar = leiders.get(i);
-//            List<Kweet> kwetKweets = kwetteraar.getKweets();
-//            kweets.addAll(kwetKweets);
-//        }
-//        kweets.addAll(kwetteraarBaseService.getKweets(id));
-//        int count = kweets.size();
-//        if (count > 50)
-//            count = 50;
-//        kweets.sort(comparing(Kweet::getDatum));
-//        Collections.reverse(kweets);
-//        return kweets.subList(0, count);
-//    }
+        tweetDao.edit(tweet);
+    }
     
     public List<Tweet> getKweetsByMentionId(long id) {
         List<Tweet> kweets = tweetDao.getTweetsByMentionId(id);

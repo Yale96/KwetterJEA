@@ -14,6 +14,9 @@ import Models.HashTag;
 import Models.Profile;
 import Models.Tweet;
 import Models.User;
+import java.util.ArrayList;
+import java.util.Collections;
+import static java.util.Comparator.comparing;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -96,6 +99,23 @@ public class UserService {
         User user = userDao.findById(id);
         user.setProfile(toAdd);
         userDao.edit(user);
+    }
+    
+    public List<Tweet> getOwnAndOthersTweets(long id) {
+        List<Tweet> tweets = new ArrayList<>();
+        List<User> leaders = getLeaders(id);
+        for (int i = 0; i < leaders.size(); i++) {
+            User user = leaders.get(i);
+            List<Tweet> userTweets = user.getTweets();
+            tweets.addAll(userTweets);
+        }
+        tweets.addAll(userDao.getTweets(id));
+        int count = tweets.size();
+        if (count > 50)
+            count = 50;
+        tweets.sort(comparing(Tweet::getTimeStamp));
+        Collections.reverse(tweets);
+        return tweets.subList(0, count);
     }
     
     public void addLike(long id, long tweetId) {

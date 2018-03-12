@@ -25,6 +25,8 @@ public interface TweetDao {
     List<Tweet> getTweetsByMentionId(long id);
     
     public List<Tweet> getRecentTweetsByUserId(long id);
+    
+    void edit(Tweet tweet);
 
     Tweet findById(Long id);
 

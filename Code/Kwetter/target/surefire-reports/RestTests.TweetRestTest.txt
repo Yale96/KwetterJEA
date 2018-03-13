@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
-Test set: RestTests.ProfileRestTest
+Test set: RestTests.TweetRestTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.334 sec <<< FAILURE!
-basicPingTest(RestTests.ProfileRestTest)  Time elapsed: 1.288 sec  <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.313 sec <<< FAILURE!
+basicPingTest(RestTests.TweetRestTest)  Time elapsed: 1.268 sec  <<< FAILURE!
 java.lang.AssertionError: 1 expectation failed.
 Expected status code <200> doesn't match actual status code <404>.
 
@@ -38,7 +38,7 @@ Expected status code <200> doesn't match actual status code <404>.
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:166)
 	at com.jayway.restassured.internal.ResponseSpecificationImpl.statusCode(ResponseSpecificationImpl.groovy:128)
 	at com.jayway.restassured.internal.ValidatableResponseOptionsImpl.statusCode(ValidatableResponseOptionsImpl.java:117)
-	at RestTests.ProfileRestTest.basicPingTest(ProfileRestTest.java:50)
+	at RestTests.TweetRestTest.basicPingTest(TweetRestTest.java:47)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

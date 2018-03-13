@@ -5,6 +5,8 @@
  */
 package RestTests;
 
+import com.jayway.restassured.RestAssured;
+import static com.jayway.restassured.RestAssured.given;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,7 +22,7 @@ public class ProfileRestTest {
     
     public ProfileRestTest() {
     }
-    
+//    
 //        public static void setup() {
 //        String port = System.getProperty("server.port");
 //        if (port == null) {

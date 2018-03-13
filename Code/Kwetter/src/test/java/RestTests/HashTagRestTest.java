@@ -98,40 +98,4 @@ public class HashTagRestTest {
 //        .when().put("/hashtags/edit").then()
 //        .statusCode(200);
 //    }
-//    
-//    
-//    
-////    @Test
-////    public void testGetAll() {
-////        HashTag hOne = new HashTag();
-////        hOne.setId(1);
-////        hOne.setContent("#DitIsEenTest");
-////        
-////        Client client = ClientBuilder.newClient();
-////        WebTarget allHashTagsTarget
-////                = client.target("http://localhost:8080/Kwetter/resources/hashtags");
-////        Response response = allHashTagsTarget.request().get();
-////        List<HashTag> hashtags = response.readEntity(new GenericType<List<HashTag>>() {
-////        });
-////        HashTag fromList = hashtags.get(0);
-////        assertEquals(hOne.getId(), fromList.getId());
-////        assertEquals(hOne.getContent(), fromList.getContent());
-////    }
-////    
-////    @Test
-////    public void testGetById() {
-////        HashTag hOne = new HashTag();
-////        hOne.setId(1);
-////        hOne.setContent("#DitIsEenTest");
-////        
-////        Client client = ClientBuilder.newClient();
-////        WebTarget byIdTarget
-////                = client.target("http://localhost:8080/Kwetter/resources/hashtags/1");
-////        Response response = byIdTarget.request().get();
-////        HashTag tag = response.readEntity(new GenericType<HashTag>() {
-////        });
-////        HashTag fromList = tag;
-////        assertEquals(hOne.getId(), fromList.getId());
-////        assertEquals(hOne.getContent(), fromList.getContent());
-////    }
 }

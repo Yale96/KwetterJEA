@@ -60,7 +60,7 @@ public class UserService {
         if (id != idLeader)
             userDao.addFollower(id, idLeader);
     }
-    public void removeVolger(long id, long idLeader) {
+    public void removeFollower(long id, long idLeader) {
         if (id != idLeader)
             userDao.removeFollower(id, idLeader);
     }

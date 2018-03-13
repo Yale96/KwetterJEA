@@ -74,7 +74,7 @@ public class HashTagResource {
    public Response deleteHashTag(@PathParam("id") long id)
    {
        //HashTag h = hashTagService.getById(hashTag.getId());
-       //Long zaad = new Long(id);
+       //Long test = new Long(id);
        hashTagService.remove(id);
        return Response.ok(hashTagService.getHashTags()).build();
    }

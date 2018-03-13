@@ -162,20 +162,20 @@ public class TweetResource {
     @POST
     @Path("/post")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response) {
+    public void addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
-        return Response.ok(tweetService.getTweets()).build();
+        //return Response.ok(tweetService.getTweets()).build();
     }
 
     @POST
     @Path("/remove")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
+    public void removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
         User poster = tweetService.getById(id).getOwner();
         poster.removeTweet(tweetService.getById(id));
         tweetService.removeTweet(id);
         userService.edit(poster);
-        return Response.ok(tweetService.getTweets()).build();
+        //return Response.ok(tweetService.getTweets()).build();
     }
 }

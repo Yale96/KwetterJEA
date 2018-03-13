@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: RestTests.ProfileRestTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.334 sec <<< FAILURE!
-basicPingTest(RestTests.ProfileRestTest)  Time elapsed: 1.288 sec  <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.394 sec <<< FAILURE!
+basicPingTest(RestTests.ProfileRestTest)  Time elapsed: 1.348 sec  <<< FAILURE!
 java.lang.AssertionError: 1 expectation failed.
 Expected status code <200> doesn't match actual status code <404>.
 

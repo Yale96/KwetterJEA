@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="1" name="RestTests.ProfileRestTest" time="1.338" errors="0" skipped="0">
+<testsuite tests="1" failures="1" name="RestTests.ProfileRestTest" time="1.399" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_161\jre\bin"/>
@@ -62,7 +62,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="RestTests.ProfileRestTest" name="basicPingTest" time="1.288">
+  <testcase classname="RestTests.ProfileRestTest" name="basicPingTest" time="1.348">
     <failure message="1 expectation failed.
 Expected status code &lt;200&gt; doesn&apos;t match actual status code &lt;404&gt;.
 " type="java.lang.AssertionError">java.lang.AssertionError: 1 expectation failed.

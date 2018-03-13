@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="RestTests.HashTagRestTest" time="2.459" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="RestTests.HashTagRestTest" time="2.215" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_161\jre\bin"/>
@@ -62,11 +62,11 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="RestTests.HashTagRestTest" name="basicPingTest" time="1.27"/>
-  <testcase classname="RestTests.HashTagRestTest" name="editHashTag" time="0.119"/>
-  <testcase classname="RestTests.HashTagRestTest" name="addHashTag" time="0.025"/>
+  <testcase classname="RestTests.HashTagRestTest" name="basicPingTest" time="1.122"/>
+  <testcase classname="RestTests.HashTagRestTest" name="editHashTag" time="0.123"/>
+  <testcase classname="RestTests.HashTagRestTest" name="addHashTag" time="0.035"/>
   <testcase classname="RestTests.HashTagRestTest" name="verifyTopLevelURL" time="0.392"/>
-  <testcase classname="RestTests.HashTagRestTest" name="verifyContentOfTag" time="0.023"/>
-  <testcase classname="RestTests.HashTagRestTest" name="invalidHashTagId" time="0.171"/>
-  <testcase classname="RestTests.HashTagRestTest" name="verifyContentOfTagOne" time="0.102"/>
+  <testcase classname="RestTests.HashTagRestTest" name="verifyContentOfTag" time="0.027"/>
+  <testcase classname="RestTests.HashTagRestTest" name="invalidHashTagId" time="0.144"/>
+  <testcase classname="RestTests.HashTagRestTest" name="verifyContentOfTagOne" time="0.038"/>
 </testsuite>

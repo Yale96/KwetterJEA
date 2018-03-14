@@ -52,6 +52,7 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
     @Override
     public void deleteTweet(long id, long tweetId) {
         findById(id).removeTweet(getTweets(id).stream().filter(k->k.getId() == tweetId).findAny().orElse(null));
+        String s = "Debug";
     }
     
     @Override

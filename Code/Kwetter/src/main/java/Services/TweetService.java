@@ -144,7 +144,7 @@ public class TweetService {
     public void removeTweet(long tweetId)
     {
         userDao.deleteTweet(tweetDao.findById(tweetId).getOwner().getId(), tweetId);
-        
+        String s = "Debug";
     }
     
     public List<User> findMentions(String content) {

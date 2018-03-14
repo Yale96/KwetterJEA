@@ -10,6 +10,10 @@ import DAO.JPA;
 import DAO.TweetDao;
 import Models.HashTag;
 import Models.Tweet;
+import io.sentry.Sentry;
+import io.sentry.event.Event;
+import io.sentry.event.EventBuilder;
+import io.sentry.event.interfaces.ExceptionInterface;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -30,6 +34,9 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     
     public TweetDaoJpa() {
         super(Tweet.class);
+        Sentry.init();
+        String dsn = "https://0e5bd3338e4742c7905d225520095ee7:bdef299271da4ca48dfecc32324eb5e7@sentry.io/302918";
+        Sentry.init(dsn);
     }
     
     @Override
@@ -96,6 +103,16 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
             return (List<Tweet>) em.createQuery(query).getResultList();
         }
         catch (Exception x) {
+             // This sends an exception event to Sentry.
+               EventBuilder eventBuilder = new EventBuilder()
+                               .withMessage("Exception caught")
+                               .withLevel(Event.Level.ERROR)
+                               .withLogger(Tweet.class.getName())
+                               .withSentryInterface(new ExceptionInterface(x));
+
+               // Note that the *unbuilt* EventBuilder instance is passed in so that
+               // EventBuilderHelpers are run to add extra information to your event.
+               Sentry.capture(eventBuilder);
             return new ArrayList<>();
         }
     }

@@ -9,6 +9,9 @@ import Models.HashTag;
 import Models.Profile;
 import Models.Tweet;
 import Models.User;
+import io.sentry.Sentry;
+import io.sentry.SentryClient;
+import io.sentry.SentryClientFactory;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -30,13 +33,17 @@ public class StartUp {
     private ProfileService pService;
     @Inject
     private HashTagService hService;
-
+    
+    static SentryClient sentry;
+    
     public StartUp() {
         
     }
 
     @PostConstruct
     private void intData(){
+        
+        
         Profile pOne = new Profile("TestOne", "TestOne", "TestOne", "TestOne", "TestOne");
         
         User uOne = new User("yannickvanleeuwen@i-lion.nl", "", "Yale96", "Admin");
@@ -57,5 +64,12 @@ public class StartUp {
         tService.addTweet(tOne);
         
         hService.addHashTag(hOne);
+        
+        Sentry.init();
+        String dsn = "https://0e5bd3338e4742c7905d225520095ee7:bdef299271da4ca48dfecc32324eb5e7@sentry.io/302918";
+        Sentry.init(dsn);
+        sentry = SentryClientFactory.sentryClient();
+        tService.logSimpleMessage();
+        tService.logException();
     }
 }

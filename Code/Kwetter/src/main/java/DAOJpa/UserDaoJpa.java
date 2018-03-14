@@ -10,6 +10,11 @@ import DAO.JPA;
 import DAO.UserDao;
 import Models.Tweet;
 import Models.User;
+import Services.TweetService;
+import io.sentry.Sentry;
+import io.sentry.event.Event;
+import io.sentry.event.EventBuilder;
+import io.sentry.event.interfaces.ExceptionInterface;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -45,6 +50,15 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
             return (User) em.createQuery("select u from User u where u.username = '" + name + "'").getSingleResult();
         }
         catch (Exception x) {
+            EventBuilder eventBuilder = new EventBuilder()
+                               .withMessage("Exception caught")
+                               .withLevel(Event.Level.ERROR)
+                               .withLogger(UserDaoJpa.class.getName())
+                               .withSentryInterface(new ExceptionInterface(x));
+
+               // Note that the *unbuilt* EventBuilder instance is passed in so that
+               // EventBuilderHelpers are run to add extra information to your event.
+               Sentry.capture(eventBuilder);
             return null;
         }
     }
@@ -66,7 +80,15 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
                 update(leider);
             }
             catch (Exception x) {
-                System.out.println(x);
+                EventBuilder eventBuilder = new EventBuilder()
+                               .withMessage("Exception caught")
+                               .withLevel(Event.Level.ERROR)
+                               .withLogger(UserDaoJpa.class.getName())
+                               .withSentryInterface(new ExceptionInterface(x));
+
+               // Note that the *unbuilt* EventBuilder instance is passed in so that
+               // EventBuilderHelpers are run to add extra information to your event.
+               Sentry.capture(eventBuilder);
             }
         }
     }
@@ -82,7 +104,15 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
                 update(leider);
             }
             catch (Exception x) {
-                System.out.println(x);
+                EventBuilder eventBuilder = new EventBuilder()
+                               .withMessage("Exception caught")
+                               .withLevel(Event.Level.ERROR)
+                               .withLogger(UserDaoJpa.class.getName())
+                               .withSentryInterface(new ExceptionInterface(x));
+
+               // Note that the *unbuilt* EventBuilder instance is passed in so that
+               // EventBuilderHelpers are run to add extra information to your event.
+               Sentry.capture(eventBuilder);
             }
         }
     }

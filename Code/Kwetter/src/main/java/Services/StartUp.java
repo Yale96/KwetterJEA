@@ -43,7 +43,6 @@ public class StartUp {
     @PostConstruct
     private void intData(){
         
-        
         Profile pOne = new Profile("TestOne", "TestOne", "TestOne", "TestOne", "TestOne");
         
         User uOne = new User("yannickvanleeuwen@i-lion.nl", "", "Yale96", "Admin");
@@ -66,7 +65,8 @@ public class StartUp {
         hService.addHashTag(hOne);
         
         Sentry.init();
-        String dsn = "https://0e5bd3338e4742c7905d225520095ee7:bdef299271da4ca48dfecc32324eb5e7@sentry.io/302918";
+        //String dsn = "https://0e5bd3338e4742c7905d225520095ee7:bdef299271da4ca48dfecc32324eb5e7@sentry.io/302918";
+        String dsn = "https://0c06f76356e84538821944f4eb623303:b2e71bdb95924695af023750d3cec237@sentry.io/304180";
         Sentry.init(dsn);
         sentry = SentryClientFactory.sentryClient();
         tService.logSimpleMessage();

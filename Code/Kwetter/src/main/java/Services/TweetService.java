@@ -32,7 +32,6 @@ import javax.inject.Inject;
  */
 @Stateless
 public class TweetService {
-      
     
     @Inject @JPA
     private TweetDao tweetDao;

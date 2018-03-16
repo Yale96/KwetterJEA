@@ -64,7 +64,6 @@ public class StartUp {
         
         hService.addHashTag(hOne);
         
-        Sentry.init();
         String dsn = "https://0e5bd3338e4742c7905d225520095ee7:bdef299271da4ca48dfecc32324eb5e7@sentry.io/302918";
         Sentry.init(dsn);
         sentry = SentryClientFactory.sentryClient();

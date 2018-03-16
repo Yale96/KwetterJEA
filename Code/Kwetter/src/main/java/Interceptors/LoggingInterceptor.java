@@ -7,9 +7,12 @@ package Interceptors;
 
 import DAOJpa.UserDaoJpa;
 import io.sentry.Sentry;
+import io.sentry.SentryClient;
+import io.sentry.SentryClientFactory;
 import io.sentry.event.Event;
 import io.sentry.event.EventBuilder;
 import io.sentry.event.interfaces.ExceptionInterface;
+import javax.annotation.PostConstruct;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -21,22 +24,19 @@ import javax.interceptor.InvocationContext;
 @LoggingCheck
 @Interceptor
 public class LoggingInterceptor {
-    
-    @AroundInvoke
-    public Object intercept(InvocationContext context) throws Exception{
-        try
-        {
-            return context.proceed();
-        }
-        catch(Exception e)
-        {
-            EventBuilder eventBuilder = new EventBuilder()
-                               .withMessage("Exception caught")
-                               .withLevel(Event.Level.ERROR)
-                               .withLogger(context.getClass().getName())
-                               .withSentryInterface(new ExceptionInterface(e));
 
-               Sentry.capture(eventBuilder);
+    @AroundInvoke
+    public Object intercept(InvocationContext context) throws Exception {
+        try {
+            return context.proceed();
+        } catch (Exception e) {
+            EventBuilder eventBuilder = new EventBuilder()
+                    .withMessage("Exception caught")
+                    .withLevel(Event.Level.ERROR)
+                    .withLogger(context.getClass().getName())
+                    .withSentryInterface(new ExceptionInterface(e));
+
+            Sentry.capture(eventBuilder);
             return null;
         }
     }

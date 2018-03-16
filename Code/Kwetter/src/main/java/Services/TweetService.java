@@ -9,6 +9,7 @@ import DAO.HashTagDao;
 import DAO.JPA;
 import DAO.TweetDao;
 import DAO.UserDao;
+import Interceptors.LoggingCheck;
 import Models.HashTag;
 import Models.Tweet;
 import Models.User;
@@ -30,7 +31,7 @@ import javax.inject.Inject;
  *
  * @author Yannick van Leeuwen
  */
-@Stateless
+@Stateless @LoggingCheck
 public class TweetService {
     
     @Inject @JPA
@@ -176,23 +177,27 @@ public class TweetService {
     }
     
     
-    
+    @LoggingCheck
     public void unsafeMethod() {
            throw new UnsupportedOperationException("Roep dit niet aan in je endpoints!");
        }
 
     public void logSimpleMessage() {
-           // This sends an event to Sentry.
-           EventBuilder eventBuilder = new EventBuilder()
-                           .withMessage("This is a test")
-                           .withLevel(Event.Level.INFO)
-                           .withLogger(TweetService.class.getName());
-
-           // Note that the *unbuilt* EventBuilder instance is passed in so that
-           // EventBuilderHelpers are run to add extra information to your event.
-           Sentry.capture(eventBuilder);
+//           // This sends an event to Sentry.
+//           EventBuilder eventBuilder = new EventBuilder()
+//                           .withMessage("This is a test")
+//                           .withLevel(Event.Level.INFO)
+//                           .withLogger(TweetService.class.getName());
+//
+//           // Note that the *unbuilt* EventBuilder instance is passed in so that
+//           // EventBuilderHelpers are run to add extra information to your event.
+//           Sentry.capture(eventBuilder);
        }
-
+    
+    /**
+     *
+     */
+    @LoggingCheck
     public void logException() {
            try {
                unsafeMethod();

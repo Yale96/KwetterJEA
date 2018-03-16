@@ -184,7 +184,6 @@ public class TweetResource {
     @GET
     @Path("/exceptions")
     public void genereteExceptions() {
-        tweetService.logSimpleMessage();
         tweetService.logException();
     }
 }

@@ -26,7 +26,7 @@ import javax.persistence.TypedQuery;
  *
  * @author Yannick van Leeuwen
  */
-@Stateless @JPA
+@Stateless @JPA 
 public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     
     @PersistenceContext

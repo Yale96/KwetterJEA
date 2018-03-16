@@ -9,6 +9,7 @@ import DAO.HashTagDao;
 import DAO.JPA;
 import DAO.ProfileDao;
 import DAO.TweetDao;
+import Interceptors.LoggingCheck;
 import Models.HashTag;
 import Models.Profile;
 import Models.Tweet;
@@ -22,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author Yannick van Leeuwen
  */
-@Stateless
+@Stateless @LoggingCheck
 public class HashTagService {
     
     @Inject @JPA

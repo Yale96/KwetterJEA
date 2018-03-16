@@ -11,12 +11,15 @@ import io.sentry.event.Event;
 import io.sentry.event.EventBuilder;
 import io.sentry.event.interfaces.ExceptionInterface;
 import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 /**
  *
  * @author yanni
  */
+@LoggingCheck
+@Interceptor
 public class LoggingInterceptor {
     
     @AroundInvoke

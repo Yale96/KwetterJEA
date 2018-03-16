@@ -8,6 +8,7 @@ package Models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -51,7 +52,7 @@ public class Tweet implements Serializable {
     @JoinTable(name = "tweet_hashtag"
             , joinColumns = @JoinColumn(name = "tweet_hashtag_id", referencedColumnName = "id")
             , inverseJoinColumns = @JoinColumn(name = "hashtag_hashtag_id", referencedColumnName = "id"))
-    private ArrayList<HashTag> hashtags;
+    private List<HashTag> hashtags;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
@@ -61,19 +62,19 @@ public class Tweet implements Serializable {
     @JoinTable(name = "tweet_tweeter_mentions"
             , joinColumns = @JoinColumn(name = "tweet_mention_id", referencedColumnName = "id")
             , inverseJoinColumns = @JoinColumn(name = "user_mention_id", referencedColumnName = "id"))
-    private ArrayList<User> mentionedUsers;
+    private List<User> mentionedUsers;
     
     @ManyToMany
     @JoinTable(name = "tweet_user_likes"
             , joinColumns = @JoinColumn(name = "tweet_like_id", referencedColumnName = "id")
             , inverseJoinColumns = @JoinColumn(name = "user_like_id", referencedColumnName = "id"))
-    private ArrayList<User> likes;
+    private List<User> likes;
     
     @OneToMany
     @JoinTable(name = "tweet_responses"
             , joinColumns = @JoinColumn(name = "tweet_id", referencedColumnName = "id")
             , inverseJoinColumns = @JoinColumn(name = "responded_tweet_id", referencedColumnName = "id"))
-    private ArrayList<Tweet> responses;
+    private List<Tweet> responses;
     
     
     public Tweet()
@@ -127,7 +128,7 @@ public class Tweet implements Serializable {
         this.timeStamp = timeStamp;
     }
 
-    public ArrayList<Tweet> getResponses() {
+    public List<Tweet> getResponses() {
         return responses;
     }
 
@@ -135,7 +136,7 @@ public class Tweet implements Serializable {
         this.responses = responses;
     }
 
-    public ArrayList<HashTag> getHashtags() {
+    public List<HashTag> getHashtags() {
         return hashtags;
     }
 
@@ -143,7 +144,7 @@ public class Tweet implements Serializable {
         this.hashtags = hashtags;
     }
 
-    public ArrayList<User> getMentionedUsers() {
+    public List<User> getMentionedUsers() {
         return mentionedUsers;
     }
 
@@ -151,7 +152,7 @@ public class Tweet implements Serializable {
         this.mentionedUsers = mentionedUsers;
     }
 
-    public ArrayList<User> getLikes() {
+    public List<User> getLikes() {
         return likes;
     }
 

@@ -133,7 +133,7 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
     }
 
     @Override
-    public ArrayList<User> getUsers() {
+    public List<User> getUsers() {
          Query query = em.createQuery("SELECT u FROM User u");
          return  new ArrayList<>(query.getResultList());
     }

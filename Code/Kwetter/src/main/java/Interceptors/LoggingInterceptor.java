@@ -5,17 +5,12 @@
  */
 package Interceptors;
 
-import DAOJpa.UserDaoJpa;
-import io.sentry.Sentry;
-import io.sentry.SentryClient;
-import io.sentry.SentryClientFactory;
-import io.sentry.event.Event;
-import io.sentry.event.EventBuilder;
-import io.sentry.event.interfaces.ExceptionInterface;
-import javax.annotation.PostConstruct;
+
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -24,20 +19,17 @@ import javax.interceptor.InvocationContext;
 @LoggingCheck
 @Interceptor
 public class LoggingInterceptor {
+        
+    private static final Logger sentrylogger = LoggerFactory.getLogger(LoggingInterceptor.class);
 
     @AroundInvoke
     public Object intercept(InvocationContext context) throws Exception {
         try {
+            System.out.print("IN INTERCEPTOR");
             return context.proceed();
-        } catch (Exception e) {
-            EventBuilder eventBuilder = new EventBuilder()
-                    .withMessage("Exception caught")
-                    .withLevel(Event.Level.ERROR)
-                    .withLogger(context.getClass().getName())
-                    .withSentryInterface(new ExceptionInterface(e));
-
-            Sentry.capture(eventBuilder);
-            return null;
+        } catch (Exception x) {
+            sentrylogger.error("An uncaught exception had been thrown.", x);
+            throw x;
         }
     }
 }

@@ -57,6 +57,7 @@ public class Profile implements Serializable{
         this.web = web;
         this.bio = bio;
         this.picture = picture;
+        System.out.println("Debug");
     }  
     
     public void setId(long id)

@@ -31,7 +31,7 @@ import javax.inject.Inject;
  *
  * @author Yannick van Leeuwen
  */
-@Stateless @LoggingCheck
+@Stateless
 public class TweetService {
     
     @Inject @JPA
@@ -175,44 +175,26 @@ public class TweetService {
         }
         return mentions;
     }
-    
-    
-    @LoggingCheck
-    public void unsafeMethod() {
-           throw new UnsupportedOperationException("Roep dit niet aan in je endpoints!");
-       }
 
-    public void logSimpleMessage() {
-//           // This sends an event to Sentry.
-//           EventBuilder eventBuilder = new EventBuilder()
-//                           .withMessage("This is a test")
-//                           .withLevel(Event.Level.INFO)
-//                           .withLogger(TweetService.class.getName());
-//
-//           // Note that the *unbuilt* EventBuilder instance is passed in so that
-//           // EventBuilderHelpers are run to add extra information to your event.
-//           Sentry.capture(eventBuilder);
-       }
+    
+    public void throwsSome()
+    {
+        throw new UnsupportedOperationException("Roep dit niet aan in je endpoints!");
+    }
     
     /**
      *
      */
     @LoggingCheck
     public void logException() {
-           try {
-               unsafeMethod();
-           } catch (Exception e) {
-               // This sends an exception event to Sentry.
-               EventBuilder eventBuilder = new EventBuilder()
-                               .withMessage("Exception caught")
-                               .withLevel(Event.Level.ERROR)
-                               .withLogger(TweetService.class.getName())
-                               .withSentryInterface(new ExceptionInterface(e));
-
-               // Note that the *unbuilt* EventBuilder instance is passed in so that
-               // EventBuilderHelpers are run to add extra information to your event.
-               Sentry.capture(eventBuilder);
-           }
+        try
+        {
+            throwsSome();
+        }
+        catch(Exception e)
+        {
+            
+        } 
        }
     
     public TweetService(){

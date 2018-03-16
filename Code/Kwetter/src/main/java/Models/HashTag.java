@@ -7,6 +7,7 @@ package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +38,7 @@ public class HashTag implements Serializable{
     private String content;
 
     @ManyToMany(mappedBy="hashtags", cascade = { CascadeType.MERGE, CascadeType.PERSIST})
-    private ArrayList<Tweet> tweets;
+    private List<Tweet> tweets;
     
     public HashTag()
     {
@@ -65,7 +66,7 @@ public class HashTag implements Serializable{
         this.content = content;
     }
 
-    public ArrayList<Tweet> getTweets() {
+    public List<Tweet> getTweets() {
         return tweets;
     }
 

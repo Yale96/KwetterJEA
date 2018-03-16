@@ -8,6 +8,7 @@ package DAOJpa;
 import DAO.DaoFacade;
 import DAO.HashTagDao;
 import DAO.JPA;
+import Interceptors.LoggingCheck;
 import Models.HashTag;
 import Models.Profile;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import javax.persistence.TypedQuery;
  *
  * @author Yannick van Leeuwen
  */
-@Stateless @JPA
+@Stateless @JPA @LoggingCheck
 public class HashTagDaoJpa extends DaoFacade<HashTag> implements HashTagDao {
     @PersistenceContext
     private EntityManager em;

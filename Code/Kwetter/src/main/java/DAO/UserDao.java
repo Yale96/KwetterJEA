@@ -33,5 +33,5 @@ public interface UserDao {
 
     User findById(Long id);
 
-    ArrayList<User> getUsers();
+    List<User> getUsers();
 }

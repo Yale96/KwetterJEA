@@ -20,15 +20,15 @@ import org.slf4j.LoggerFactory;
 @Interceptor
 public class LoggingInterceptor {
         
-    private static final Logger sentrylogger = LoggerFactory.getLogger(LoggingInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
 
     @AroundInvoke
     public Object intercept(InvocationContext context) throws Exception {
         try {
-            System.out.print("IN INTERCEPTOR");
+            System.out.print("IN INTERCEPTOR WITH CONTEXT " + context + ".");
             return context.proceed();
         } catch (Exception x) {
-            sentrylogger.error("An uncaught exception had been thrown.", x);
+            logger.error("An exception had been thrown, you must catch it.", x);
             throw x;
         }
     }

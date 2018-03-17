@@ -176,7 +176,7 @@ public class TweetService {
         return mentions;
     }
 
-    
+    @LoggingCheck
     public void throwsSome()
     {
         throw new UnsupportedOperationException("Roep dit niet aan in je endpoints!");
@@ -191,7 +191,7 @@ public class TweetService {
         {
             throwsSome();
         }
-        catch(Exception e)
+        catch(Exception x)
         {
             
         } 

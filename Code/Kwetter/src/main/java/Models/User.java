@@ -211,6 +211,7 @@ public class User implements Serializable {
         Tweet t = tweets.stream().filter(k -> k.getId() == tweet.getId()).findAny().orElse(null);
         if (tweet != null && tweets != null && tweets.contains(t)) {
             tweets.remove(t);
+            String s = "Debug";
             if (t.getOwner() != this)
                 t.setOwner(null);
         }

@@ -48,6 +48,7 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
 
         try {
             return (User) em.createQuery("select u from User u where u.username = '" + name + "'").getSingleResult();
+            
         }
         catch (Exception x) {
             EventBuilder eventBuilder = new EventBuilder()

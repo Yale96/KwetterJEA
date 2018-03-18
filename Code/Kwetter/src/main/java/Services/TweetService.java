@@ -10,6 +10,7 @@ import DAO.JPA;
 import DAO.TweetDao;
 import DAO.UserDao;
 import Interceptors.LoggingCheck;
+import Interceptors.ReplaceCheck;
 import Models.HashTag;
 import Models.Tweet;
 import Models.User;
@@ -111,6 +112,7 @@ public class TweetService {
         return tweetDao.getTweetsByHashtagId(id);
     }
     
+    @ReplaceCheck
     public void sendNewTweet(long id, String inhoud) {
         Tweet tweet = new Tweet();
         tweet.setContent(inhoud);

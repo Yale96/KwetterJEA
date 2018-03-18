@@ -26,7 +26,7 @@ public class ReplaceInterceptor {
     public Object replace(InvocationContext context) throws Exception {
         Object[] parameters = context.getParameters();
         if (parameters.length > 0 && parameters[1] instanceof Tweet) {
-            Tweet tweet = (Tweet) parameters[1];
+            Tweet tweet = (Tweet) parameters[0];
             String content = tweet.getContent();
             content = content.replace("vet", "dik");
             tweet.setContent(content);

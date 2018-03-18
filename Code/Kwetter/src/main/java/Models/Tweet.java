@@ -54,7 +54,8 @@ public class Tweet implements Serializable {
             , inverseJoinColumns = @JoinColumn(name = "hashtag_hashtag_id", referencedColumnName = "id"))
     private List<HashTag> hashtags;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    //@ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
     

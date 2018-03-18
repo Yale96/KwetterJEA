@@ -24,6 +24,7 @@ public class ReplaceInterceptor {
     
     @AroundInvoke
     public Object replace(InvocationContext context) throws Exception {
+        System.out.print("IN REPLACE INTERCEPTOR");
         Object[] parameters = context.getParameters();
         if (parameters.length > 0 && parameters[1] instanceof Tweet) {
             Tweet tweet = (Tweet) parameters[0];

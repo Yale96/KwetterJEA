@@ -5,6 +5,7 @@
  */
 package boundary.rest;
 
+import Interceptors.LoggingCheck;
 import Models.HashTag;
 import Models.Profile;
 import Models.Tweet;
@@ -33,6 +34,7 @@ import javax.ws.rs.core.Response;
  *
  * @author Yannick van Leeuwen
  */
+@LoggingCheck
 @Path("tweets")
 @Stateless
 public class TweetResource {
@@ -174,10 +176,10 @@ public class TweetResource {
     public void removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
         User poster = tweetService.getById(id).getOwner();
         Tweet toRemove = tweetService.getById(id);
-        poster.removeTweet(toRemove);
+        //poster.removeTweet(toRemove);
         tweetService.removeTweet(toRemove.getId());
+        
         userService.edit(poster);
-        tweetService.editTweet(toRemove);
         //return Response.ok(tweetService.getTweets()).build();
     }
 

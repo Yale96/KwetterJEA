@@ -31,6 +31,8 @@ public interface TweetDao {
     void edit(Tweet tweet);
 
     Tweet findById(Long id);
+    
+    void remove(Tweet tweet);
 
     ArrayList<Tweet> getTweets();
 }

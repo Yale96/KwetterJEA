@@ -212,7 +212,7 @@ public class User implements Serializable {
         if (tweet != null && tweets != null && tweets.contains(t)) {
             tweets.remove(t);
             String s = "Debug";
-            if (t.getOwner() != this)
+            if (t.getOwner() != this) 
                 t.setOwner(null);
         }
     }

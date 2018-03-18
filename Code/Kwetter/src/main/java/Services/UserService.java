@@ -72,6 +72,7 @@ public class UserService {
     
     public void deleteTweet(long id, long tweetId) {
         getTweets(id).remove(getTweets(id).stream().filter(k->k.getId() == tweetId).findAny().orElse(null));
+        
     }
     
     public void editRole(long id, String newRol) {

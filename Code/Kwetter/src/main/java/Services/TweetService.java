@@ -155,7 +155,7 @@ public class TweetService {
         userDao.deleteTweet(tweetDao.findById(tweetId).getOwner().getId(), tweetId);
         long toRemove = tweetDao.findById(tweetId).getOwner().getId();
         Tweet t = getById(toRemove);
-        tweetDao.remove(getById(toRemove));
+        tweetDao.remove(t);
         String s = "Debug";
     }
     

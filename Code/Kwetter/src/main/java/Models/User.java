@@ -39,13 +39,13 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_leaders",
              joinColumns = @JoinColumn(name = "super_id", referencedColumnName = "id", nullable = false),
              inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id", nullable = false))
     private List<User> supers;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_followers",
              joinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id", nullable = false),
              inverseJoinColumns = @JoinColumn(name = "super_id", referencedColumnName = "id", nullable = false))

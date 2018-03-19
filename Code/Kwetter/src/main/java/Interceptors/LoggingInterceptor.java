@@ -25,7 +25,7 @@ public class LoggingInterceptor {
     @AroundInvoke
     public Object intercept(InvocationContext context) throws Exception {
         try {
-            System.out.print("IN INTERCEPTOR WITH CONTEXT " + context + ".");
+            System.out.print("IN LOG INTERCEPTOR WITH CONTEXT");
             return context.proceed();
         } catch (Exception x) {
             logger.error("An exception had been thrown, you must catch it.", x);

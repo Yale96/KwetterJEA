@@ -64,6 +64,6 @@ public class StartUp {
         
         hService.addHashTag(hOne);
         
-        tService.logException();
+        //tService.logException();
     }
 }

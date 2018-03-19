@@ -26,11 +26,12 @@ public class ReplaceInterceptor {
     public Object replace(InvocationContext context) throws Exception {
         System.out.print("IN REPLACE INTERCEPTOR");
         Object[] parameters = context.getParameters();
-        if (parameters.length > 0 && parameters[1] instanceof Tweet) {
+        if (parameters.length > 0 && parameters[0] != null) {
             Tweet tweet = (Tweet) parameters[0];
             String content = tweet.getContent();
             content = content.replace("vet", "dik");
             tweet.setContent(content);
+            
         }
         return context.proceed();
     }

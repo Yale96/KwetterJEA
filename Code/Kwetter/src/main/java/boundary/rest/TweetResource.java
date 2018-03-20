@@ -174,12 +174,7 @@ public class TweetResource {
     @Path("/remove")
     @Produces(MediaType.APPLICATION_JSON)
     public void removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
-        //User poster = tweetService.getById(id).getOwner();
-        Tweet toRemove = tweetService.getById(id);
-        //poster.removeTweet(toRemove);
-        tweetService.removeTweet(toRemove.getId());
-        
-        //userService.edit(poster);
+        tweetService.removeTweet(id);
         //return Response.ok(tweetService.getTweets()).build();
     }
 

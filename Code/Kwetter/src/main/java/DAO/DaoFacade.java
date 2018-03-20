@@ -29,7 +29,7 @@ public abstract class DaoFacade<T> {
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+        getEntityManager().remove(entity);
     }
 
     public T find(Object id) {

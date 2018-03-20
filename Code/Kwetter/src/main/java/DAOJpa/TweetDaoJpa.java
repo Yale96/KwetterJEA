@@ -21,6 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -77,6 +78,7 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
         return new ArrayList<>();
     }
     
+    //@Transactional
     @Override
     public Tweet findById(Long id) {
         TypedQuery<Tweet> query = em.createNamedQuery("Tweet.findById", Tweet.class);

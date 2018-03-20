@@ -146,9 +146,7 @@ public class TweetService {
     
     public void removeTweet(long tweetId)
     {
-        userDao.deleteTweet(tweetDao.findById(tweetId).getOwner().getId(), tweetId);
-        long toRemove = tweetDao.findById(tweetId).getOwner().getId();
-        Tweet t = getById(toRemove);
+        Tweet t = getById(tweetId);
         tweetDao.remove(t);
         String s = "Debug";
     }
@@ -181,9 +179,7 @@ public class TweetService {
         throw new UnsupportedOperationException("Roep dit niet aan in je endpoints!");
     }
     
-    /**
-     *
-     */
+    
     @LoggingCheck
     public void logException() {
         try

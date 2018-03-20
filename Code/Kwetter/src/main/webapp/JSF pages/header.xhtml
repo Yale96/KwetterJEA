@@ -4,13 +4,30 @@
 <html xmlns="http://www.w3c.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <link type="text/css" rel="stylesheet" href="/project/faces/javax.faces.resource/theme.css?ln=primefaces-glass-x" />
     <body>
         <ui:composition>
 
-            <h1>This is a admin header</h1>
+            <h:form>  
+                <p:growl id="messages"/>
+                <p:menubar>
+                    <p:submenu label="File" icon="ui-icon-document">
+                        <p:menuitem value="Open" url="#" />
+                        <p:separator />
+                    </p:submenu>
+                    <p:submenu label="File" icon="ui-icon-document">
+                        <p:menuitem value="Open" url="#" />
+                        <p:separator />
+                    </p:submenu>
+                    <p:submenu label="File" icon="ui-icon-document">
+                        <p:menuitem value="Open" url="#" />
+                        <p:separator />
+                    </p:submenu>
+                </p:menubar>
+            </h:form>
 
         </ui:composition>
     </body>

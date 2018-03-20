@@ -4,13 +4,14 @@
 
 <html xmlns="http://www.w3c.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-<link type="text/css" rel="stylesheet" href="/project/faces/javax.faces.resource/theme.css?ln=primefaces-glass-x" />
+    <link type="text/css" rel="stylesheet" href="/project/faces/javax.faces.resource/admin.css?ln=primefaces-glass-x" />
     <h:body>
 
-        <div id="page" align="center">
+        <div id="page" align="left">
 
             <div id="header">
                 <ui:insert name="header" >
@@ -34,6 +35,8 @@
 
                     <p:column headerText="Role">
                         <h:outputText value="#{user.rol}" />
+                    </p:column>
+                    <p:column headerText="Edit role">
                     </p:column>
                 </p:dataTable>
 

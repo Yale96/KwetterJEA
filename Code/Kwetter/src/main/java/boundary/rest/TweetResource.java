@@ -164,10 +164,10 @@ public class TweetResource {
     @POST
     @Path("/post")
     @Produces(MediaType.APPLICATION_JSON)
-    public void addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response) {
+    public Response addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
-        //return Response.ok(tweetService.getTweets()).build();
+        return Response.ok(tweetService.getTweets()).build();
     }
 
     @POST

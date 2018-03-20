@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: ModelTests.HashTagTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.062 sec
+=======
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.066 sec
+>>>>>>> d9d41e073e3ccb8d25170ced1607c866fffcb801

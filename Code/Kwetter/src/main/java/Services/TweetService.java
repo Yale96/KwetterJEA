@@ -182,14 +182,7 @@ public class TweetService {
     
     @LoggingCheck
     public void logException() {
-        try
-        {
-            throwsSome();
-        }
-        catch(Exception x)
-        {
-            
-        } 
+        throwsSome();
        }
     
     public TweetService(){

@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-mrt-2018, 13:49:34
+    Author     : Yannick van Leeuwen
+*/
+@CHARSET "ISO-8859-1";
+
+	#top {
+		display:none;
+
+	}
+	
+	#left {
+		display:none;
+	}
+		
+	#content {
+		background-color:#FFFFFF;
+		color:#000000;
+		position:relative;
+		
+		padding:5px;
+
+		top: 5px;
+		margin-left: 5px;
+		margin-bottom:5px;
+		
+	}
+
+	#bottom {
+		display:none;
+	}

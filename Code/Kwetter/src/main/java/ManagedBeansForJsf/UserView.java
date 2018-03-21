@@ -27,11 +27,14 @@ public class UserView {
     @Inject
     private UserService userService;
     
+    public User user;
+    
     List<User> users;
     /**
      * Creates a new instance of UserView
      */
     public UserView() {
+        user = new User();
     }
     
     public List<User> getAllUsers()

@@ -7,9 +7,11 @@
     <packaging>war</packaging>
     <repositories>
         <repository>
-            <id>prime-repo</id>
-            <name>Prime Repo</name>
+            <!-- PrimeFaces -->
+            <id>prime-repo</id>  
+            <name>PrimeFaces Maven Repository</name>
             <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
         </repository>
     </repositories>
     <dependencies>
@@ -43,10 +45,9 @@
             <version>6.2</version>
         </dependency>
         <dependency>
-            <groupId>com.github.adminfaces</groupId>
-            <artifactId>admin-theme</artifactId>
-            <version>1.0.0-RC11</version>
-            <!--<classifier>dev</classifier> uncompressed theme.css-->
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>1.0.10</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

@@ -48,15 +48,15 @@
                         </p:column>
 
                         <p:column headerText="Role">
-                            <h:outputText value="#{user.rol}" />
+                            <h:outputText value="#{user.getRol().getType()}" />
                         </p:column>
 
                         <p:column headerText="Brand">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{user.rol}" /></f:facet>
                                 <f:facet name="input">
-                                    <h:selectOneMenu value="#{user.rol}" style="width:100%">
-                                        <f:selectItems value="#{userView.allUsers}" var="user" itemLabel="#{user}" itemValue="#{user}" />
+                                    <h:selectOneMenu value="#{user.getRol().getType()}" style="width:100%">
+                                        <f:selectItems value="#{userView.getRoleName(user)}" var="user" itemLabel="#{rol}" itemValue="#{rol}" />
                                     </h:selectOneMenu>
                                 </f:facet>
                             </p:cellEditor>

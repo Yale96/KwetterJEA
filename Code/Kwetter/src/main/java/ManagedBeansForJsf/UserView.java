@@ -46,6 +46,11 @@ public class UserView {
         return userService.getUsers();
     }
     
+    public String getRoleName(User usert)
+    {
+        return usert.getRol().getType();
+    }
+    
     public String getOtherRole(User user)
     {
         if(user.getRol().equals("Admin"))

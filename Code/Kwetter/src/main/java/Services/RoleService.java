@@ -8,6 +8,7 @@ package Services;
 import DAO.JPA;
 import DAO.RolDao;
 import Models.Rol;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -22,5 +23,9 @@ public class RoleService {
 
     public void addRole(Rol role) {
         roleDao.create(role);
+    }
+    
+    public List<Rol> getRoles() {
+        return roleDao.getRoles();
     }
 }

@@ -40,7 +40,7 @@ public class RolDaoJpa extends DaoFacade<Rol> implements RolDao {
     
     @Override
     public Rol findById(Long id) {
-        TypedQuery<Rol> query = em.createNamedQuery("Role.findById", Rol.class);
+        TypedQuery<Rol> query = em.createNamedQuery("Rol.findById", Rol.class);
         query.setParameter("id", id);
         List<Rol> result = query.getResultList();
         System.out.println("count: " + result.size());
@@ -49,7 +49,7 @@ public class RolDaoJpa extends DaoFacade<Rol> implements RolDao {
     
     @Override
     public ArrayList<Rol> getRoles() {
-         Query query = em.createQuery("SELECT r FROM Role r");
+         Query query = em.createQuery("SELECT r FROM Rol r");
          return  new ArrayList<>(query.getResultList());
     }
 }

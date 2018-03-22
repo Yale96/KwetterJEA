@@ -5,8 +5,11 @@
  */
 package ManagedBeansForJsf;
 
+import Models.Rol;
 import Models.User;
+import Services.RoleService;
 import Services.UserService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -31,6 +34,9 @@ public class UserView {
     @Inject
     private UserService userService;
     
+    @Inject
+    private RoleService roleService;
+    
     public User user;
     
     List<User> users;
@@ -49,6 +55,16 @@ public class UserView {
     public String getRoleName(User usert)
     {
         return usert.getRol().getType();
+    }
+    
+    public List<String> getAllRoleTypes()
+    {
+        List<String> returnList = new ArrayList<>();
+        for(Rol r: roleService.getRoles())
+        {
+            returnList.add(r.getType());
+        }
+        return returnList;
     }
     
     public String getOtherRole(User user)

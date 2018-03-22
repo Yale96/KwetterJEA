@@ -51,12 +51,12 @@
                             <h:outputText value="#{user.getRol().getType()}" />
                         </p:column>
 
-                        <p:column headerText="Brand">
+                        <p:column headerText="Edit role">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{user.rol}" /></f:facet>
+                                <f:facet name="output"><h:outputText value="#{user.getRol().getType()}" /></f:facet>
                                 <f:facet name="input">
-                                    <h:selectOneMenu value="#{user.getRol().getType()}" style="width:100%">
-                                        <f:selectItems value="#{userView.getRoleName(user)}" var="user" itemLabel="#{rol}" itemValue="#{rol}" />
+                                    <h:selectOneMenu value="#{user}" style="width:100%">
+                                        <f:selectItems value="#{userView.allRoleTypes}" var="user" itemLabel="#{rol}" itemValue="#{rol}" />
                                     </h:selectOneMenu>
                                 </f:facet>
                             </p:cellEditor>

@@ -7,6 +7,7 @@ package ModelTests;
 
 import Models.HashTag;
 import Models.Profile;
+import Models.Rol;
 import Models.Tweet;
 import Models.User;
 import java.util.ArrayList;
@@ -28,13 +29,13 @@ public class HashTagTest {
     public void testGettersAndSetters() {
         long id = 1;
         String testTag = "#DitIsEenTestTag";
-        
+        Rol r = new Rol("Test", "Test");
         User owner = new User();
         owner.setId(1);
         owner.setPassword("Yannick");
         owner.setEmail("Test");
         owner.setUsername("Yale96");
-        owner.setRol("Admin");
+        owner.setRol(r);
         
         Tweet t = new Tweet();
         t.setId(id);

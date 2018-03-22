@@ -64,8 +64,9 @@ public class User implements Serializable {
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile profile;
 
-    @Column(nullable = false)
-    private String rol;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Rol role;
 
     public User() {
         supers = new ArrayList<>();
@@ -75,11 +76,11 @@ public class User implements Serializable {
         tweets = new ArrayList<>();
     }
 
-    public User(String email, String password, String username, String rol) {
+    public User(String email, String password, String username, Rol rol) {
         this.email = email;
         this.password = password;
         this.username = username;
-        this.rol = rol;
+        this.role = rol;
     }
 
     public void setId(long id) {
@@ -98,12 +99,12 @@ public class User implements Serializable {
         this.profile = profile;
     }
 
-    public String getRol() {
-        return rol;
+    public Rol getRol() {
+        return role;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRol(Rol role) {
+        this.role = role;
     }
 
     public void setUsername(String username) {

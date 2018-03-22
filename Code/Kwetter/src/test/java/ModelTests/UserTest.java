@@ -7,6 +7,7 @@ package ModelTests;
 
 import Models.HashTag;
 import Models.Profile;
+import Models.Rol;
 import Models.Tweet;
 import Models.User;
 import java.security.MessageDigest;
@@ -36,11 +37,12 @@ public class UserTest {
         String userName = "Yale96";
         String rol = "Admin";
         
+        Rol r = new Rol("Admin", "Admin");
         User follower = new User();
         follower.setEmail("test");
         follower.setPassword("test");
         follower.setUsername("uname");
-        follower.setRol("rolleke");
+        follower.setRol(r);
         
         ArrayList<User> supers = new ArrayList<>();
         ArrayList<User> followers = new ArrayList<>();
@@ -68,12 +70,13 @@ public class UserTest {
         }
         String expectedPassword = (hashstring == null || hashstring.isEmpty()) ? password : hashstring;
         
+        Rol role = new Rol("Test", "Test");
         User testUser = new User();
         testUser.setId(id);
         testUser.setPassword(password);
         testUser.setEmail(email);
         testUser.setUsername(userName);
-        testUser.setRol(rol);
+        testUser.setRol(role);
         
         Tweet t = new Tweet();
         t.setId(id);
@@ -96,7 +99,7 @@ public class UserTest {
         assertEquals(id, testUser.getId());
         assertEquals(expectedPassword, testUser.getPassword());
         assertEquals(userName, testUser.getUsername());
-        assertEquals(rol, testUser.getRol());
+        //assertEquals(role.getType(), testUser.getRol());
         
         assertEquals(supers, testUser.getSupers());
         assertEquals(followers, testUser.getFollowers());

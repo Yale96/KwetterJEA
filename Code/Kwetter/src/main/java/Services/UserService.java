@@ -12,6 +12,7 @@ import DAO.ProfileDao;
 import DAO.TweetDao;
 import Models.HashTag;
 import Models.Profile;
+import Models.Rol;
 import Models.Tweet;
 import Models.User;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import DAO.RolDao;
 
 /**
  *
@@ -40,6 +42,9 @@ public class UserService {
     
     @Inject @JPA
     private HashTagDao tagDao;
+    
+    @Inject @JPA
+    private RolDao roleDao;
     
     public void addUser(User user) {
         userDao.create(user);
@@ -75,9 +80,10 @@ public class UserService {
         
     }
     
-    public void editRole(long id, String newRol) {
+    public void editRole(long id, long roleId) {
         User user = userDao.findById(id);
-        user.setRol(newRol);
+        Rol toSet = roleDao.findById(roleId);
+        user.setRol(toSet);
         userDao.edit(user);
     }
     

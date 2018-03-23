@@ -1,21 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<h:outputStylesheet library="css" name="default.css" />
-	<link rel="stylesheet" href="css/default.css" type="text/css" />
-	<h:outputStylesheet library="css" name="cssLayout.css" />
-	
-	<link rel="stylesheet" media="screen" href="/resources/styles.css"  type="text/css" />
-	<link rel="stylesheet" media="print" href="/resources/print.css"  type="text/css" />
-	<link rel="stylesheet" media="(max-width: 800px)" href="/resources/print.css"  type="text/css" />
-	<title><ui:insert name="title"></ui:insert></title>
-</h:head>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css" />
+        <link rel="stylesheet" href="css/default.css" type="text/css" />
+        <h:outputStylesheet library="css" name="cssLayout.css" />
+
+        <link rel="stylesheet" media="screen" href="/resources/styles.css"  type="text/css" />
+        <link rel="stylesheet" media="print" href="/resources/print.css"  type="text/css" />
+        <link rel="stylesheet" media="(max-width: 800px)" href="/resources/print.css"  type="text/css" />
+        <title><ui:insert name="title"></ui:insert></title>
+    </h:head>
     <h:body>
 
         <div id="adminTweets">
@@ -25,27 +26,40 @@
                     <ui:include src="/JSF pages/header.xhtml" />
                 </ui:insert>
             </div>
-
-            <div id="tweetTable">
-                <p:dataTable var="tweet" value="#{tweetView.allTweets}">
+                       
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true" />
+                <p:dataTable id="checkboxDT" var="tweet" value="#{tweetView.allTweets}" selection="#{tweetView.selectedTweets}" rowKey="#{tweet.id}" style="margin-bottom:0">
+                    <f:facet name="header">
+                        Checkbox
+                    </f:facet>
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     <p:column headerText="Id">
                         <h:outputText value="#{tweet.id}" />
                     </p:column>
-
                     <p:column headerText="Content">
                         <h:outputText value="#{tweet.content}" />
                     </p:column>
-
                     <p:column headerText="Timestamp">
                         <h:outputText value="#{tweet.timeStamp}" />
                     </p:column>
-
-                    <p:column headerText="Owner Id">
+                    <p:column headerText="Owner">
                         <h:outputText value="#{tweet.owner}" />
                     </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton process="checkboxDT" update=":form:multiTweetDetail" icon="ui-icon-search" value="View" oncomplete="PF('multiTweetDialog').show()" />
+                    </f:facet>
                 </p:dataTable>
-            </div>
-            
+
+                <p:dialog header="Selected Tweets" widgetVar="multiTweetDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
+                    <p:outputPanel id="multiTweetDetail" style="text-align:center;">
+                        <ui:repeat value="#{tweetView.selectedTweets}" var="tweet">
+                            <h:outputText value="#{tweet.id} - #{tweet.content}" style="display:block"/>
+                        </ui:repeat>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+
             <div id="footer">
                 <ui:insert name="footer" >
                     <ui:include src="/JSF pages/footer.xhtml" />

@@ -11,7 +11,11 @@ import Services.UserService;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -24,6 +28,8 @@ public class TweetView {
     @Inject
     private TweetService tweetService;
     
+    private Tweet selectedTweet;
+    private List<Tweet> selectedTweets;
     /**
      * Creates a new instance of TweetView
      */
@@ -34,4 +40,31 @@ public class TweetView {
     {
         return tweetService.getTweets();
     }
+
+    public Tweet getSelectedTweet() {
+        return selectedTweet;
+    }
+
+    public void setSelectedTweet(Tweet selectedTweet) {
+        this.selectedTweet = selectedTweet;
+    }
+
+    public List<Tweet> getSelectedTweets() {
+        return selectedTweets;
+    }
+
+    public void setSelectedTweets(List<Tweet> selectedTweets) {
+        this.selectedTweets = selectedTweets;
+    }
+    
+    public void onRowSelect(SelectEvent event) {
+        FacesMessage msg = new FacesMessage("Tweet Selected", ((Tweet) event.getObject()).getContent());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+ 
+    public void onRowUnselect(UnselectEvent event) {
+        FacesMessage msg = new FacesMessage("Tweet Unselected", ((Tweet) event.getObject()).getContent());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
 }

@@ -67,6 +67,11 @@ public class UserView {
         return returnList;
     }
     
+    public void editRole(User usert, Rol role)
+    {
+        userService.editRole(usert.getId(), role.getId());
+    }
+    
     public String getOtherRole(User user)
     {
         if(user.getRol().equals("Admin"))
@@ -78,7 +83,7 @@ public class UserView {
     }
     
     public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Car Edited", ((User) event.getObject()).getUsername());
+        FacesMessage msg = new FacesMessage("User Edited", ((User) event.getObject()).getUsername());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
      

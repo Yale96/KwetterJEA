@@ -130,10 +130,10 @@ public class UserResource {
    @POST
    @Path("/addFollower")
    @Produces(MediaType.APPLICATION_JSON)
-   public Response addFollower(@FormParam("id") long id, @FormParam("superid") long superId, @Context HttpServletResponse response)
+   public void addFollower(@FormParam("id") long id, @FormParam("superid") long superId, @Context HttpServletResponse response)
    {
        userService.addFollower(id, superId);
-       return Response.ok(userService.getFollowers(id)).build();
+       //return Response.ok(userService.getFollowers(id)).build();
    }
    
    @POST

@@ -133,6 +133,15 @@ public class UserService {
         tweetDao.findById(tweetId).removeLike(userDao.findById(id));
     }
     
+    public void addFlag(long id, long tweetId) {
+        tweetDao.findById(tweetId).addFlag(userDao.findById(id));
+    }
+    
+    public void removeFlag(long id, long tweetId)
+    {
+        tweetDao.findById(tweetId).removeFlag(userDao.findById(id));
+    }
+    
     public List<User> getLeaders(long id)
     {
         return userDao.findById(id).getLeaders();

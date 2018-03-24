@@ -70,6 +70,12 @@ public class Tweet implements Serializable {
             , inverseJoinColumns = @JoinColumn(name = "user_like_id", referencedColumnName = "id"))
     private List<User> likes;
     
+    @ManyToMany
+    @JoinTable(name = "tweet_user_flags"
+            , joinColumns = @JoinColumn(name = "tweet_flag_id", referencedColumnName = "id")
+            , inverseJoinColumns = @JoinColumn(name = "user_flag_id", referencedColumnName = "id"))
+    private List<User> flags;
+    
     @OneToMany
     @JoinTable(name = "tweet_responses"
             , joinColumns = @JoinColumn(name = "tweet_id", referencedColumnName = "id")
@@ -83,6 +89,7 @@ public class Tweet implements Serializable {
        hashtags = new ArrayList<HashTag>();
        mentionedUsers = new ArrayList<User>();
        likes = new ArrayList<User>(); 
+       flags = new ArrayList<User>();
     }
     
     public Tweet(String content, Date timeStamp)
@@ -156,6 +163,16 @@ public class Tweet implements Serializable {
         return likes;
     }
 
+    public List<User> getFlags() {
+        return flags;
+    }
+
+    public void setFlags(List<User> flags) {
+        this.flags = flags;
+    }
+    
+    
+    
     public void setLikes(ArrayList<User> likes) {
         this.likes = likes;
     }
@@ -193,6 +210,24 @@ public class Tweet implements Serializable {
             likes.remove(user);
             if (user.getTweets().contains(this))
                 user.removeLike(this);
+        }
+    }
+    
+    public void addFlag(User flag){
+        if(flag != null && flags != null && !flags.contains(flag))
+        {
+            flags.add(flag);
+            if(!flag.getTweets().contains(this))
+                flag.addFlag(this);
+        }
+    }
+    
+    public void removeFlag(User flag){
+        User user = flags.stream().filter(k -> k.getId() == flag.getId()).findAny().orElse(null);
+        if (flag != null && flags != null && flags.contains(user)) {
+            flags.remove(user);
+            if (user.getTweets().contains(this))
+                user.removeFlag(this);
         }
     }
 }

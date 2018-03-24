@@ -50,9 +50,12 @@ public class User implements Serializable {
              joinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id", nullable = false),
              inverseJoinColumns = @JoinColumn(name = "super_id", referencedColumnName = "id", nullable = false))
     private List<User> followers;
-
+    
     @ManyToMany(mappedBy = "likes", cascade = CascadeType.MERGE)
     private List<Tweet> likes;
+    
+    @ManyToMany(mappedBy = "flags", cascade = CascadeType.MERGE)
+    private List<Tweet> flags;
 
     @ManyToMany(mappedBy = "mentionedUsers", cascade = CascadeType.MERGE)
     private List<Tweet> mentions;
@@ -74,6 +77,7 @@ public class User implements Serializable {
         likes = new ArrayList<>();
         mentions = new ArrayList<>();
         tweets = new ArrayList<>();
+        flags = new ArrayList<>();
     }
 
     public User(String email, String password, String username, Rol rol) {
@@ -185,6 +189,16 @@ public class User implements Serializable {
         return tweets;
     }
 
+    public List<Tweet> getFlags() {
+        return flags;
+    }
+
+    public void setFlags(List<Tweet> flags) {
+        this.flags = flags;
+    }
+    
+    
+    
     public void setTweets(ArrayList<Tweet> tweets) {
         this.tweets = tweets;
     }
@@ -233,6 +247,24 @@ public class User implements Serializable {
             likes.remove(t);
             if (t.getLikes().contains(this))
                 t.removeLike(this);
+        }
+    }
+    
+    public void addFlag(Tweet flag) {
+        if(flag != null && flags != null && !flags.contains(flag))
+        {
+            flags.add(flag);
+            if(!flag.getFlags().contains(this))
+                flag.addFlag(this);
+        }
+    }
+    
+    public void removeFlag(Tweet tweet){
+        Tweet t = flags.stream().filter(k -> k.getId() == tweet.getId()).findAny().orElse(null);
+        if (tweet != null && flags != null && flags.contains(t)) {
+            flags.remove(t);
+            if (t.getFlags().contains(this))
+                t.removeFlag(this);
         }
     }
     

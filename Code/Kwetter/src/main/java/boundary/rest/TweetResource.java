@@ -140,25 +140,49 @@ public class TweetResource {
     @POST
     @Path("/like")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response likeTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+    public void likeTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
         poster.addLike(tweet);
         userService.edit(poster);
         tweetService.editTweet(tweet);
-        return Response.ok(tweetService.getTweets()).build();
+        //return Response.ok(tweetService.getTweets()).build();
     }
 
     @POST
     @Path("/dislike")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response dislikeTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+    public void dislikeTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
         poster.removeLike(tweet);
         userService.edit(poster);
         tweetService.editTweet(tweet);
-        return Response.ok(tweetService.getTweets()).build();
+        //return Response.ok(tweetService.getTweets()).build();
+    }
+    
+    @POST
+    @Path("/flag")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void flagTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+        User poster = userService.getByName(name);
+        Tweet tweet = tweetService.getById(tweetId);
+        poster.addFlag(tweet);
+        userService.edit(poster);
+        tweetService.editTweet(tweet);
+        //return Response.ok(tweetService.getTweets()).build();
+    }
+
+    @POST
+    @Path("/unflag")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void disflagTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+        User poster = userService.getByName(name);
+        Tweet tweet = tweetService.getById(tweetId);
+        poster.removeFlag(tweet);
+        userService.edit(poster);
+        tweetService.editTweet(tweet);
+        //return Response.ok(tweetService.getTweets()).build();
     }
 
     @POST

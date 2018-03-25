@@ -34,4 +34,8 @@ public interface UserDao {
     User findById(Long id);
 
     List<User> getUsers();
+    
+    void register(String userName, String password);
+    
+    boolean login(String userName, String password);
 }

@@ -156,6 +156,16 @@ public class UserService {
         return userDao.getByName(name);
     }
     
+    public void registerUser(String userName, String password)
+    {
+        userDao.register(userName, password);
+    }
+    
+    public boolean login(String userName, String password)
+    {
+        return userDao.login(userName, password);
+    }
+    
     public UserService(){
 
     }

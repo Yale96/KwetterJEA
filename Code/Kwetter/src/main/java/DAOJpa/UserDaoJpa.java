@@ -138,4 +138,31 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
          Query query = em.createQuery("SELECT u FROM User u");
          return  new ArrayList<>(query.getResultList());
     }
+
+    @Override
+    public void register(String userName, String password) {
+        if(userName != null && !userName.isEmpty() && password != null && !password.isEmpty())
+        {
+            User user = new User();
+            user.setUsername(userName);
+            user.setPassword(password);
+            create(user);
+        }
+    }
+
+    @Override
+    public boolean login(String userName, String password) {
+        if(userName != null && !userName.isEmpty() && password != null && !password.isEmpty())
+            return false;
+
+        try {
+            User user = (User) em.createQuery("select u from User u where u.userName = '" + userName + "' and u.password = '" + password + "'").getSingleResult();
+            if (user != null)
+                return true;
+            return false;
+        }
+        catch (Exception x) {
+            return false;
+        }
+    }
 }

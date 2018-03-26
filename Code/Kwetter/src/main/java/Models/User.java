@@ -162,8 +162,13 @@ public class User implements Serializable {
     }
 
     public List<User> getFollowers() {
-        
-        return followers;
+        List<User> tempUsers = new ArrayList<>();
+        for(User u:followers)
+        {
+            User user = new User(u.getEmail(), u.getPassword(), u.getUsername(), u.getRol());
+            tempUsers.add(user);
+        }
+        return tempUsers;
     }
 
     public void setFollowers(ArrayList<User> followers) {

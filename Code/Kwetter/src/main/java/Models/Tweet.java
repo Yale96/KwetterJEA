@@ -136,7 +136,13 @@ public class Tweet implements Serializable {
     }
 
     public List<Tweet> getResponses() {
-        return responses;
+        List<Tweet> tempTweets = new ArrayList<>();
+        for(Tweet t:responses)
+        {
+            Tweet tweet = new Tweet(t.getContent(), t.getTimeStamp());
+            tempTweets.add(tweet);
+        }
+        return tempTweets;
     }
 
     public void setResponses(ArrayList<Tweet> responses) {

@@ -13,6 +13,7 @@ import Models.User;
 import Services.ProfileService;
 import Services.TweetService;
 import Services.UserService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -188,10 +189,12 @@ public class TweetResource {
     @POST
     @Path("/post")
     @Produces(MediaType.APPLICATION_JSON)
-    public void addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response) {
+    public Response addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
-        //return Response.ok(tweetService.getTweets()).build();
+        List<Tweet> returnList = new ArrayList<Tweet>();
+        returnList = tweetService.getTweets();
+        return Response.ok(returnList).build();
     }
 
     @POST

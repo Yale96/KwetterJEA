@@ -1,72 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet library="css" name="default.css" />
-        <link rel="stylesheet" href="css/default.css" type="text/css" />
-        <h:outputStylesheet library="css" name="cssLayout.css" />
-
-        <link rel="stylesheet" media="screen" href="/resources/styles.css"  type="text/css" />
-        <link rel="stylesheet" media="print" href="/resources/print.css"  type="text/css" />
-        <link rel="stylesheet" media="(max-width: 800px)" href="/resources/print.css"  type="text/css" />
-        <title><ui:insert name="title"></ui:insert></title>
-    </h:head>
-    <h:body>
-
-        <div id="adminTweets">
-
-            <div id="header">
-                <ui:insert name="header" >
-                    <ui:include src="/JSF pages/header.xhtml" />
-                </ui:insert>
-            </div>
-                       
-            <h:form id="form">
-                <p:growl id="msgs" showDetail="true" />
-                <p:dataTable id="checkboxDT" var="tweet" value="#{tweetView.allTweets}" selection="#{tweetView.selectedTweets}" rowKey="#{tweet.id}" style="margin-bottom:0">
-                    <f:facet name="header">
-                        Checkbox
-                    </f:facet>
-                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                    <p:column headerText="Id">
-                        <h:outputText value="#{tweet.id}" />
-                    </p:column>
-                    <p:column headerText="Content">
-                        <h:outputText value="#{tweet.content}" />
-                    </p:column>
-                    <p:column headerText="Timestamp">
-                        <h:outputText value="#{tweet.timeStamp}" />
-                    </p:column>
-                    <p:column headerText="Owner">
-                        <h:outputText value="#{tweet.owner}" />
-                    </p:column>
-                    <f:facet name="footer">
-                        <p:commandButton process="checkboxDT" update=":form:multiTweetDetail" icon="ui-icon-search" value="View" oncomplete="PF('multiTweetDialog').show()" />
-                    </f:facet>
-                </p:dataTable>
-
-                <p:dialog header="Selected Tweets" widgetVar="multiTweetDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
-                    <p:outputPanel id="multiTweetDetail" style="text-align:center;">
-                        <ui:repeat value="#{tweetView.selectedTweets}" var="tweet">
-                            <h:outputText value="#{tweet.id} - #{tweet.content}" style="display:block"/>
-                        </ui:repeat>
-                    </p:outputPanel>
-                </p:dialog>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+<h:body>
+    <h1>Admin Panel Kwetter</h1>
+    <h2>Tweets</h2>
+    <p:dataTable value="#{kwetadmin.tweets}" var="Tweet">
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Author"/>
+            </f:facet>
+            <h:outputText value="#{tweet.author.username}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Tweet"/>
+            </f:facet>
+            <h:outputText value="#{tweet.content}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Liked by"/>
+            </f:facet>
+            <p:repeat value="#{tweet.likes}" var="like">
+                <span>#{like.username} </span>
+            </p:repeat>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Actions"/>
+            </f:facet>
+            <h:form>
+                <p:commandButton icon="fa fa-trash" id="nonAjax" actionListener="#{tweetadmin.handleDelete(tweet.id)}"
+                                 type="button" ajax="false"/>
             </h:form>
+        </p:column>
+    </p:dataTable>
 
-            <div id="footer">
-                <ui:insert name="footer" >
-                    <ui:include src="/JSF pages/footer.xhtml" />
-                </ui:insert>
-            </div>
-
-        </div>
-
-    </h:body>
+</h:body>
 </html>

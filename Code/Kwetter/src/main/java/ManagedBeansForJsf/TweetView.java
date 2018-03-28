@@ -40,6 +40,12 @@ public class TweetView {
     {
         return tweetService.getTweets();
     }
+    
+    public void deleteTweet(Long id)
+    {
+        Tweet tweet = tweetService.getById(id);
+        tweetService.removeTweet(tweet.getId());
+    }
 
     public Tweet getSelectedTweet() {
         return selectedTweet;

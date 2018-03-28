@@ -20,7 +20,7 @@
     <h:body>
 
         <div id="adminTweets">
-
+            
             <div id="header">
                 <ui:insert name="header" >
                     <ui:include src="/JSF pages/header.xhtml" />
@@ -29,50 +29,15 @@
 
             <div id="welcomeText">
                 <h1>Welcome at the Kwetter admin page!!!!</h1>
-                <p>If you have a username and a password you can the link right under here to login.</p>
             </div>
-
-            <h:form>            
-                <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
-                    <p:graphicImage name="../resources/images/login_icon.png" />
-                    <p>LOGIN</p>
-                </h:outputLink>
-
-                <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-
-                <p:dialog header="Login" widgetVar="dlg" resizable="false">
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputLabel for="username" value="Username:" />
-                        <p:inputText id="username" value="#{adminLogin.username}" required="true" label="username" />
-
-                        <h:outputLabel for="password" value="Password:" />
-                        <p:password id="password" value="#{adminLogin.password}" required="true" label="password" />
-
-                        <f:facet name="footer">
-                            <p:commandButton value="Login" update="growl" actionListener="#{adminLogin.login}"
-                                             oncomplete="handleLoginRequest(xhr, status, args)" />
-                        </f:facet>  
-                    </h:panelGrid>
-                </p:dialog>
-            </h:form>
-
 
             <div id="footer">
                 <ui:insert name="footer" >
                     <ui:include src="/JSF pages/footer.xhtml" />
                 </ui:insert>
             </div>
-
+            
         </div>
     </h:body>
-    <script type="text/javascript">
-        function handleLoginRequest(xhr, status, args) {
-            if (args.validationFailed || !args.loggedIn) {
-                PF('dlg').jq.effect("shake", {times: 5}, 100);
-            } else {
-                PF('dlg').hide();
-                $('#loginLink').fadeOut();
-            }
-        }
-    </script>
+    
 </html>

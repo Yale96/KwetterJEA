@@ -9,10 +9,10 @@
 <h:body>
     <h1>Admin Panel Kwetter</h1>
     <h2>Users</h2>
-    <p:dataTable value="#{useradmin.users}" var="user">
+    <p:dataTable value="#{userView.allUsers}" var="user">
         <p:column>
             <f:facet name="header">
-                <h:outputText value="Author"/>
+                <h:outputText value="User"/>
             </f:facet>
             <h:outputText value="#{user.username}"/>
         </p:column>
@@ -20,7 +20,7 @@
             <f:facet name="header">
                 <h:outputText value="Role   "/>
             </f:facet>
-            <h:outputText value="#{user.role.type}"/>
+            <h:outputText value="#{user.rol.type}"/>
         </p:column>
     </p:dataTable>
 

@@ -30,6 +30,7 @@ public class TweetView {
     
     private Tweet selectedTweet;
     private List<Tweet> selectedTweets;
+    private List<Tweet> tweets;
     /**
      * Creates a new instance of TweetView
      */
@@ -38,7 +39,8 @@ public class TweetView {
     
     public List<Tweet> getAllTweets()
     {
-        return tweetService.getTweets();
+        tweets = tweetService.getTweets();
+        return tweets;
     }
     
     public void deleteTweet(Long id)
@@ -46,6 +48,7 @@ public class TweetView {
         Tweet tweet = tweetService.getById(id);
         tweetService.removeTweet(tweet.getId());
     }
+    
 
     public Tweet getSelectedTweet() {
         return selectedTweet;

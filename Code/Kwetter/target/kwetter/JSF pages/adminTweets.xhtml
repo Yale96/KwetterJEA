@@ -28,7 +28,7 @@
                 <h:outputText value="Liked by"/>
             </f:facet>
             <p:repeat value="#{tweet.likes}" var="like">
-                <span>#{like.} </span>
+                <span>#{like.owner.email} </span>
             </p:repeat>
         </p:column>
         <p:column>

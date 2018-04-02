@@ -43,7 +43,7 @@ public class TweetView {
         return tweets;
     }
     
-    public void deleteTweet(Long id)
+     public void deleteTweet(Long id)
     {
         Tweet tweet = tweetService.getById(id);
         tweetService.removeTweet(tweet.getId());

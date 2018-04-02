@@ -57,7 +57,6 @@ public class StartUp {
         uOne.setProfile(pOne);
         
         Tweet tOne = new Tweet("Test", new Date());
-        
         HashTag hOne = new HashTag("#DitIsEenTest");
         rService.addRole(roleOne);
         rService.addRole(roleTwo);
@@ -70,7 +69,5 @@ public class StartUp {
         tService.addTweet(tOne);
         
         hService.addHashTag(hOne);
-        
-        //tService.logException();
     }
 }

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Kwetter">
+  <ClassDiagramComponents>
+    <Class name="HashTag" package="Models" visibility="public" xPosition="24.0" yPosition="95.0">
+      <Fields>
+        <Field name="id" type="long" visibility="private"/>
+        <Field name="content" type="String" visibility="private"/>
+        <Field name="tweets" type="List&lt;Tweet&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="content"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="long" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="long" name="id"/>
+        </Method>
+        <Method name="getContent" returnType="String" visibility="public"/>
+        <Method name="setContent" returnType="void" visibility="public">
+          <Argument type="String" name="content"/>
+        </Method>
+        <Method name="getTweets" returnType="List&lt;Tweet&gt;" visibility="public"/>
+        <Method name="setTweets" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;Tweet&gt;" name="tweets"/>
+        </Method>
+        <Method name="addTweet" returnType="void" visibility="public">
+          <Argument type="Tweet" name="tweet"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Profile" package="Models" visibility="public" xPosition="75.0" yPosition="938.0">
+      <Fields>
+        <Field name="id" type="long" visibility="private"/>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="location" type="String" visibility="private"/>
+        <Field name="web" type="String" visibility="private"/>
+        <Field name="bio" type="String" visibility="private"/>
+        <Field name="picture" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="location"/>
+          <Argument type="String" name="web"/>
+          <Argument type="String" name="bio"/>
+          <Argument type="String" name="picture"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="long" name="id"/>
+        </Method>
+        <Method name="getId" returnType="long" visibility="public"/>
+        <Method name="getName" returnType="String" visibility="public"/>
+        <Method name="setName" returnType="void" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="getLocation" returnType="String" visibility="public"/>
+        <Method name="setLocation" returnType="void" visibility="public">
+          <Argument type="String" name="location"/>
+        </Method>
+        <Method name="getWeb" returnType="String" visibility="public"/>
+        <Method name="setWeb" returnType="void" visibility="public">
+          <Argument type="String" name="web"/>
+        </Method>
+        <Method name="getBio" returnType="String" visibility="public"/>
+        <Method name="setBio" returnType="void" visibility="public">
+          <Argument type="String" name="bio"/>
+        </Method>
+        <Method name="getPicture" returnType="String" visibility="public"/>
+        <Method name="setPicture" returnType="void" visibility="public">
+          <Argument type="String" name="picture"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Rol" package="Models" visibility="public" xPosition="1403.0" yPosition="95.0">
+      <Fields>
+        <Field name="id" type="long" visibility="private"/>
+        <Field name="type" type="String" visibility="private"/>
+        <Field name="description" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="type"/>
+          <Argument type="String" name="description"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="long" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="long" name="Id"/>
+        </Method>
+        <Method name="getType" returnType="String" visibility="public"/>
+        <Method name="setType" returnType="void" visibility="public">
+          <Argument type="String" name="Type"/>
+        </Method>
+        <Method name="getDescription" returnType="String" visibility="public"/>
+        <Method name="setDescription" returnType="void" visibility="public">
+          <Argument type="String" name="Description"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Tweet" package="Models" visibility="public" xPosition="716.0" yPosition="95.0">
+      <Fields>
+        <Field name="id" type="long" visibility="private"/>
+        <Field name="content" type="String" visibility="private"/>
+        <Field name="timeStamp" type="Date" visibility="private"/>
+        <Field name="hashtags" type="List&lt;HashTag&gt;" visibility="private"/>
+        <Field name="owner" type="User" visibility="private"/>
+        <Field name="mentionedUsers" type="List&lt;User&gt;" visibility="private"/>
+        <Field name="likes" type="List&lt;User&gt;" visibility="private"/>
+        <Field name="flags" type="List&lt;User&gt;" visibility="private"/>
+        <Field name="responses" type="List&lt;Tweet&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="content"/>
+          <Argument type="Date" name="timeStamp"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getOwner" returnType="User" visibility="public"/>
+        <Method name="setOwner" returnType="void" visibility="public">
+          <Argument type="User" name="owner"/>
+        </Method>
+        <Method name="getId" returnType="long" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="long" name="id"/>
+        </Method>
+        <Method name="getContent" returnType="String" visibility="public"/>
+        <Method name="setContent" returnType="void" visibility="public">
+          <Argument type="String" name="content"/>
+        </Method>
+        <Method name="getTimeStamp" returnType="Date" visibility="public"/>
+        <Method name="setTimeStamp" returnType="void" visibility="public">
+          <Argument type="Date" name="timeStamp"/>
+        </Method>
+        <Method name="getResponses" returnType="List&lt;Tweet&gt;" visibility="public"/>
+        <Method name="setResponses" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;Tweet&gt;" name="responses"/>
+        </Method>
+        <Method name="getHashtags" returnType="List&lt;HashTag&gt;" visibility="public"/>
+        <Method name="setHashtags" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;HashTag&gt;" name="hashtags"/>
+        </Method>
+        <Method name="getMentionedUsers" returnType="List&lt;User&gt;" visibility="public"/>
+        <Method name="setMentionedUsers" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;User&gt;" name="mentionedUsers"/>
+        </Method>
+        <Method name="getLikes" returnType="List&lt;User&gt;" visibility="public"/>
+        <Method name="getFlags" returnType="List&lt;User&gt;" visibility="public"/>
+        <Method name="setFlags" returnType="void" visibility="public">
+          <Argument type="List&lt;User&gt;" name="flags"/>
+        </Method>
+        <Method name="setLikes" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;User&gt;" name="likes"/>
+        </Method>
+        <Method name="addHashTag" returnType="void" visibility="public">
+          <Argument type="HashTag" name="hashTag"/>
+        </Method>
+        <Method name="addMention" returnType="void" visibility="public">
+          <Argument type="User" name="mention"/>
+        </Method>
+        <Method name="addLike" returnType="void" visibility="public">
+          <Argument type="User" name="like"/>
+        </Method>
+        <Method name="removeLike" returnType="void" visibility="public">
+          <Argument type="User" name="like"/>
+        </Method>
+        <Method name="addFlag" returnType="void" visibility="public">
+          <Argument type="User" name="flag"/>
+        </Method>
+        <Method name="removeFlag" returnType="void" visibility="public">
+          <Argument type="User" name="flag"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="User" package="Models" visibility="public" xPosition="1445.0" yPosition="488.0">
+      <Fields>
+        <Field name="id" type="long" visibility="private"/>
+        <Field name="username" type="String" visibility="private"/>
+        <Field name="email" type="String" visibility="private"/>
+        <Field name="password" type="String" visibility="private"/>
+        <Field name="supers" type="List&lt;User&gt;" visibility="private"/>
+        <Field name="followers" type="List&lt;User&gt;" visibility="private"/>
+        <Field name="likes" type="List&lt;Tweet&gt;" visibility="private"/>
+        <Field name="flags" type="List&lt;Tweet&gt;" visibility="private"/>
+        <Field name="mentions" type="List&lt;Tweet&gt;" visibility="private"/>
+        <Field name="tweets" type="List&lt;Tweet&gt;" visibility="private"/>
+        <Field name="profile" type="Profile" visibility="private"/>
+        <Field name="role" type="Rol" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="email"/>
+          <Argument type="String" name="password"/>
+          <Argument type="String" name="username"/>
+          <Argument type="Rol" name="rol"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="long" name="id"/>
+        </Method>
+        <Method name="getId" returnType="long" visibility="public"/>
+        <Method name="getProfile" returnType="Profile" visibility="public"/>
+        <Method name="setProfile" returnType="void" visibility="public">
+          <Argument type="Profile" name="profile"/>
+        </Method>
+        <Method name="getRol" returnType="Rol" visibility="public"/>
+        <Method name="setRol" returnType="void" visibility="public">
+          <Argument type="Rol" name="role"/>
+        </Method>
+        <Method name="setUsername" returnType="void" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+        <Method name="getUsername" returnType="String" visibility="public"/>
+        <Method name="getEmail" returnType="String" visibility="public"/>
+        <Method name="setEmail" returnType="void" visibility="public">
+          <Argument type="String" name="email"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="setPassword" returnType="void" visibility="public">
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="getLeaders" returnType="List&lt;User&gt;" visibility="public"/>
+        <Method name="setLeaders" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;User&gt;" name="leaders"/>
+        </Method>
+        <Method name="getFollowers" returnType="List&lt;User&gt;" visibility="public"/>
+        <Method name="setFollowers" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;User&gt;" name="followers"/>
+        </Method>
+        <Method name="getLikes" returnType="List&lt;Tweet&gt;" visibility="public"/>
+        <Method name="setLikes" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;Tweet&gt;" name="likes"/>
+        </Method>
+        <Method name="getMentions" returnType="List&lt;Tweet&gt;" visibility="public"/>
+        <Method name="setMentions" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;Tweet&gt;" name="mentions"/>
+        </Method>
+        <Method name="getTweets" returnType="List&lt;Tweet&gt;" visibility="public"/>
+        <Method name="getFlags" returnType="List&lt;Tweet&gt;" visibility="public"/>
+        <Method name="setFlags" returnType="void" visibility="public">
+          <Argument type="List&lt;Tweet&gt;" name="flags"/>
+        </Method>
+        <Method name="setTweets" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;Tweet&gt;" name="tweets"/>
+        </Method>
+        <Method name="getSupers" returnType="List&lt;User&gt;" visibility="public"/>
+        <Method name="setSupers" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;User&gt;" name="supers"/>
+        </Method>
+        <Method name="addTweet" returnType="void" visibility="public">
+          <Argument type="Tweet" name="tweet"/>
+        </Method>
+        <Method name="removeTweet" returnType="void" visibility="public">
+          <Argument type="Tweet" name="tweet"/>
+        </Method>
+        <Method name="addLike" returnType="void" visibility="public">
+          <Argument type="Tweet" name="like"/>
+        </Method>
+        <Method name="removeLike" returnType="void" visibility="public">
+          <Argument type="Tweet" name="tweet"/>
+        </Method>
+        <Method name="addFlag" returnType="void" visibility="public">
+          <Argument type="Tweet" name="flag"/>
+        </Method>
+        <Method name="removeFlag" returnType="void" visibility="public">
+          <Argument type="Tweet" name="tweet"/>
+        </Method>
+        <Method name="addFollower" returnType="void" visibility="public">
+          <Argument type="User" name="follower"/>
+        </Method>
+        <Method name="removeFollower" returnType="void" visibility="public">
+          <Argument type="User" name="follower"/>
+        </Method>
+        <Method name="addSuper" returnType="void" visibility="public">
+          <Argument type="User" name="superUser"/>
+        </Method>
+        <Method name="removeSuper" returnType="void" visibility="public">
+          <Argument type="User" name="superUser"/>
+        </Method>
+        <Method name="addMention" returnType="void" visibility="public">
+          <Argument type="Tweet" name="mention"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="profile" source="Models.User" target="Models.Profile" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="owner" source="Models.Tweet" target="Models.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="followers" source="Models.User" target="Models.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;User&gt;"/>
+    <HasRelation name="hashtags" source="Models.Tweet" target="Models.HashTag" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;HashTag&gt;"/>
+    <HasRelation name="mentions" source="Models.User" target="Models.Tweet" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Tweet&gt;"/>
+    <HasRelation name="tweets" source="Models.HashTag" target="Models.Tweet" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Tweet&gt;"/>
+    <HasRelation name="role" source="Models.User" target="Models.Rol" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tweets" source="Models.User" target="Models.Tweet" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Tweet&gt;"/>
+    <HasRelation name="likes" source="Models.Tweet" target="Models.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;User&gt;"/>
+    <HasRelation name="flags" source="Models.Tweet" target="Models.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;User&gt;"/>
+    <HasRelation name="likes" source="Models.User" target="Models.Tweet" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Tweet&gt;"/>
+    <HasRelation name="flags" source="Models.User" target="Models.Tweet" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Tweet&gt;"/>
+    <HasRelation name="supers" source="Models.User" target="Models.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;User&gt;"/>
+    <HasRelation name="mentionedUsers" source="Models.Tweet" target="Models.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;User&gt;"/>
+    <HasRelation name="responses" source="Models.Tweet" target="Models.Tweet" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Tweet&gt;"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

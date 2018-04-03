@@ -8,28 +8,36 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
     </h:head>
-    <h:body>
-        <h1>Welcome at the admin page where you can manage users</h1>
-        <div id="header">
-            <ui:insert name="header" >
-                <ui:include src="/admin/header.xhtml" />
-            </ui:insert>
-        </div>
-        <h2>Users</h2>
-        <p:dataTable value="#{userView.allUsers}" var="user">
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="User"/>
-                </f:facet>
-                <h:outputText value="#{user.username}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Role   "/>
-                </f:facet>
-                <h:outputText value="#{user.rol.type}"/>
-            </p:column>
-        </p:dataTable>
+    <h:form>
+        <h:body>
+            <h1>Welcome at the admin page where you can manage users</h1>
+            <div id="header">
+                <ui:insert name="header" >
+                    <ui:include src="/admin/header.xhtml" />
+                </ui:insert>
+            </div>
+            <h2>Users</h2>
+            <p:dataTable value="#{userView.allUsers}" var="user" paginator="true" rows="10" styleClass="paginated">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="User"/>
+                    </f:facet>
+                    <h:outputText value="#{user.username}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Role"/>
+                    </f:facet>
+                    <h:outputText value="#{user.rol.type}"/>
+                </p:column>
+                <p:column headerText="Available roles">     
+                    <p:dataList value="#{userView.allRoleTypes}" var="role" type="ordered">
+                        #{role.type} <p:commandButton value="Add" id="nonAjax" actionListener="#{userView.editRole(user, role)}" ajax="false" />
+                    </p:dataList>
+                </p:column>
 
-    </h:body>
+            </p:dataTable>
+
+        </h:body>
+    </h:form>
 </html>

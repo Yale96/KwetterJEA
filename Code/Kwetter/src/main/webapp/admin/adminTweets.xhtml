@@ -8,46 +8,37 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
     </h:head>
-    <h:body>
-        <h1>Welcome at the admin page where you can manage tweets</h1>
-        
-        <div id="header">
-            <ui:insert name="header" >
-                <ui:include src="/admin/header.xhtml" />
-            </ui:insert>
-        </div>
-        <h2>Tweets</h2>
-        <p:dataTable value="#{tweetView.allTweets}" var="tweet">
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Author"/>
-                </f:facet>
-                <h:outputText value="#{tweet.owner.username}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Tweet"/>
-                </f:facet>
-                <h:outputText value="#{tweet.content}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Number of flags"/>
-                </f:facet>
-                <p:repeat value="#{tweet.flags}" var="tweet">
-                    <h:outputText value="#{tweet.flags.size()}"/>
-                </p:repeat>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Actions"/>
-                </f:facet>
-                <h:form>
-                    <p:commandButton icon="fa-trash" id="nonAjax" actionListener="#{tweetView.deleteTweet(tweet.id)}"
-                                     type="button" ajax="false"/>
-                </h:form>
-            </p:column>
-        </p:dataTable>
+    <h:form>
+        <h:body>
+            <h1>Welcome at the admin page where you can manage tweets</h1>
 
-    </h:body>
+            <div id="header">
+                <ui:insert name="header" >
+                    <ui:include src="/admin/header.xhtml" />
+                </ui:insert>
+            </div>
+            <h2>Tweets</h2>
+            <p:dataTable value="#{tweetView.allTweets}" var="tweet" paginator="true" rows="10" styleClass="paginated">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Author"/>
+                    </f:facet>
+                    <h:outputText value="#{tweet.owner.username}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tweet"/>
+                    </f:facet>
+                    <h:outputText value="#{tweet.content}"/>
+                </p:column>
+                <p:column headerText="Number of flags">
+                    #{tweet.flags.size()}
+                </p:column>
+                <p:column headerText="">
+                    <p:commandButton value="Delete" id="nonAjax" actionListener="#{tweetView.deleteTweet(tweet.id)}" ajax="false" />
+                </p:column>
+
+            </p:dataTable>
+        </h:body>
+    </h:form>
 </html>

@@ -57,14 +57,9 @@ public class UserView {
         return usert.getRol().getType();
     }
     
-    public List<String> getAllRoleTypes()
+    public List<Rol> getAllRoleTypes()
     {
-        List<String> returnList = new ArrayList<>();
-        for(Rol r: roleService.getRoles())
-        {
-            returnList.add(r.getType());
-        }
-        return returnList;
+        return roleService.getRoles();
     }
     
     public void editRole(User usert, Rol role)

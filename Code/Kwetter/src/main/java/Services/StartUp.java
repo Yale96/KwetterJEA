@@ -52,8 +52,8 @@ public class StartUp {
         
         User uOne = new User("yannickvanleeuwen@i-lion.nl", "", "Yale96", roleOne);
         uOne.setPassword("Yannick");
-        User uTwo = new User("dennisvanleeuwen@i-lion.nl", "", "Dendi78", roleTwo);
-        uTwo.setPassword("Dennis");
+        User uTwo = new User("dennisvanleeuwen@i-lion.nl", "", "Admin", roleOne);
+        uTwo.setPassword("Admin");
         uOne.setProfile(pOne);
         
         Tweet tOne = new Tweet("Test", new Date());

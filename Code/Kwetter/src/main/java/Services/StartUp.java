@@ -45,8 +45,8 @@ public class StartUp {
 
     @PostConstruct
     private void intData(){
-        Rol roleOne = new Rol("Admin", "SuperUser");
-        Rol roleTwo = new Rol("User", "User of Kwetter");
+        Rol roleOne = new Rol("admin", "SuperUser");
+        Rol roleTwo = new Rol("user", "User of Kwetter");
         
         Profile pOne = new Profile("TestOne", "TestOne", "TestOne", "TestOne", "TestOne");
         

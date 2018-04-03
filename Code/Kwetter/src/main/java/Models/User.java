@@ -68,7 +68,7 @@ public class User implements Serializable {
     private Profile profile;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @JoinColumn(name = "role_name", referencedColumnName = "type")
     private Rol role;
 
     public User() {

@@ -76,16 +76,9 @@ public class Tweet implements Serializable {
             , inverseJoinColumns = @JoinColumn(name = "user_flag_id", referencedColumnName = "id"))
     private List<User> flags;
     
-    @OneToMany
-    @JoinTable(name = "tweet_responses"
-            , joinColumns = @JoinColumn(name = "tweet_id", referencedColumnName = "id")
-            , inverseJoinColumns = @JoinColumn(name = "responded_tweet_id", referencedColumnName = "id"))
-    private List<Tweet> responses;
-    
     
     public Tweet()
     {
-       responses = new ArrayList<Tweet>();
        hashtags = new ArrayList<HashTag>();
        mentionedUsers = new ArrayList<User>();
        likes = new ArrayList<User>(); 
@@ -135,20 +128,6 @@ public class Tweet implements Serializable {
         this.timeStamp = timeStamp;
     }
 
-    public List<Tweet> getResponses() {
-        List<Tweet> tempTweets = new ArrayList<>();
-        for(Tweet t:responses)
-        {
-            Tweet tweet = new Tweet(t.getContent(), t.getTimeStamp());
-            tempTweets.add(tweet);
-        }
-        return tempTweets;
-    }
-
-    public void setResponses(ArrayList<Tweet> responses) {
-        this.responses = responses;
-    }
-
     public List<HashTag> getHashtags() {
         return hashtags;
     }
@@ -176,8 +155,6 @@ public class Tweet implements Serializable {
     public void setFlags(List<User> flags) {
         this.flags = flags;
     }
-    
-    
     
     public void setLikes(ArrayList<User> likes) {
         this.likes = likes;

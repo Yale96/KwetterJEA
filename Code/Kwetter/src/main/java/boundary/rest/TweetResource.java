@@ -165,44 +165,42 @@ public class TweetResource {
     @POST
     @Path("/flag")
     @Produces(MediaType.APPLICATION_JSON)
-    public void flagTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+    public Response flagTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
         poster.addFlag(tweet);
         userService.edit(poster);
         tweetService.editTweet(tweet);
-        //return Response.ok(tweetService.getTweets()).build();
+        return Response.ok().build();
     }
 
     @POST
     @Path("/unflag")
     @Produces(MediaType.APPLICATION_JSON)
-    public void disflagTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+    public Response disflagTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
         poster.removeFlag(tweet);
         userService.edit(poster);
         tweetService.editTweet(tweet);
-        //return Response.ok(tweetService.getTweets()).build();
+        return Response.ok().build();
     }
 
     @POST
     @Path("/post")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addTweet(@FormParam("name") String name, @FormParam("content") String content, @Context HttpServletResponse response) {
+    public Response addTweet(@FormParam("name") String name, @FormParam("content") String content) {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
-        List<Tweet> returnList = new ArrayList<Tweet>();
-        returnList = tweetService.getTweets();
-        return Response.ok(returnList).build();
+        return Response.ok().build();
     }
 
     @POST
     @Path("/remove")
     @Produces(MediaType.APPLICATION_JSON)
-    public void removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
+    public Response removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
         tweetService.removeTweet(id);
-        //return Response.ok(tweetService.getTweets()).build();
+        return Response.ok(tweetService.getTweets()).build();
     }
 
     @GET

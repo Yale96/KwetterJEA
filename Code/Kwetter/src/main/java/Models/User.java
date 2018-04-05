@@ -210,7 +210,13 @@ public class User implements Serializable {
     }
 
     public List<User> getSupers() {
-        return supers;
+        List<User> tempUsers = new ArrayList<>();
+        for(User u:supers)
+        {
+            User user = new User(u.getEmail(), u.getPassword(), u.getUsername(), u.getRol());
+            tempUsers.add(user);
+        }
+        return tempUsers;
     }
 
     public void setSupers(ArrayList<User> supers) {

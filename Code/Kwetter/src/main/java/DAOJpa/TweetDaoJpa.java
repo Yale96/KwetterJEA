@@ -91,7 +91,8 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     @Override
     public ArrayList<Tweet> getTweets() {
          Query query = em.createQuery("SELECT t FROM Tweet t");
-         return  new ArrayList<>(query.getResultList());
+         ArrayList<Tweet> returnList = new ArrayList<>(query.getResultList());
+         return returnList; 
     }    
     
     public List<Tweet> spareUnnecessaryWork(String query) {

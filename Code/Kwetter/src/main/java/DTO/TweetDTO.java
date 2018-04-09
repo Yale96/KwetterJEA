@@ -5,6 +5,7 @@
  */
 package DTO;
 
+import Models.Tweet;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
 public class TweetDTO {
     private long id;
     
-    private UserDTO owner;
+    private String owner;
     
     private String content;
     
@@ -34,8 +35,17 @@ public class TweetDTO {
     {
         
     }
+    
+    public TweetDTO(Tweet tweet)
+    {
+        this.id = tweet.getId();
+        this.content = tweet.getContent();
+        this.timeStamp = tweet.getTimeStamp();
+        this.tagsCount = tweet.getHashtags().size();
+        this.owner = tweet.getOwner().getUsername();
+    }
    
-    public TweetDTO(long id, UserDTO owner, String content, Date timeStamp, long tagsCount, long mentionsCount, long likesCount, long flagsCount, long responsesCount)
+    public TweetDTO(long id, String owner, String content, Date timeStamp, long tagsCount, long mentionsCount, long likesCount, long flagsCount, long responsesCount)
     {
         this.id = id;
         this.owner = owner;
@@ -56,11 +66,11 @@ public class TweetDTO {
         this.id = id;
     }
 
-    public UserDTO getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(UserDTO owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 

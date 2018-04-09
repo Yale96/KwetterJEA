@@ -198,7 +198,7 @@ public class TweetResource {
     public Response addTweet(@FormParam("name") String name, @FormParam("content") String content) {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
-        return Response.ok().build();
+        return Response.ok(getAll()).build();
     }
 
     @POST
@@ -206,7 +206,7 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
         tweetService.removeTweet(id);
-        return Response.ok(tweetService.getTweets()).build();
+        return Response.ok(tweetService.getById(id)).build();
     }
 
     @GET

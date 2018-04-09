@@ -5,8 +5,10 @@
  */
 package boundary.rest;
 
+import DTO.UserDTO;
 import Models.User;
 import Services.UserService;
+import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -38,8 +40,13 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getAll() {
-        return userService.getUsers();
+    public List<UserDTO> getAll() {
+        List<UserDTO> returnList = new ArrayList<>();
+        for(User u: userService.getUsers())
+        {
+            returnList.add(new UserDTO(u));
+        }
+        return returnList;
     }
 
     @GET

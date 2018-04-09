@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package DTO;
+import Models.User;
+
 
 /**
  *
@@ -12,7 +14,7 @@ package DTO;
 public class UserDTO {
     private long id;
     
-    private ProfileDTO profileDTO;
+    private long profileId;
     
     private String email;
     
@@ -32,17 +34,32 @@ public class UserDTO {
     
     private long tweetsCount;
     
-    private RoleDTO roleDTO;
+    private String roleDTO;
     
     public UserDTO()
     {
         
     }
     
-    public UserDTO(long id, ProfileDTO profileDTO, String email, String username, String password, long supersCount, long followersCount, long likesCount, long flagsCount, long mentionsCount, long tweetsCount, RoleDTO roleDTO)
+    public UserDTO(User user)
+    {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+        this.profileId = user.getProfile().getId();
+        this.supersCount = user.getSupers().size();
+        this.followersCount = user.getFollowers().size();
+        this.likesCount = user.getLikes().size();
+        this.flagsCount = user.getFlags().size();
+        this.mentionsCount = user.getMentions().size();
+        this.tweetsCount = user.getTweets().size();
+        this.roleDTO = user.getRol().getType();
+    }
+    
+    public UserDTO(long id, int profileDTO, String email, String username, String password, long supersCount, long followersCount, long likesCount, long flagsCount, long mentionsCount, long tweetsCount, String roleDTO)
     {
         this.id = id;
-        this.profileDTO = profileDTO;
+        this.profileId = profileDTO;
         this.email = email;
         this.username = username;
         this.password = password;
@@ -63,12 +80,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public ProfileDTO getProfileDTO() {
-        return profileDTO;
+    public long getProfileDTO() {
+        return profileId;
     }
 
-    public void setProfileDTO(ProfileDTO profileDTO) {
-        this.profileDTO = profileDTO;
+    public void setProfileDTO(long profileDTO) {
+        this.profileId = profileDTO;
     }
 
     public String getEmail() {
@@ -143,11 +160,11 @@ public class UserDTO {
         this.tweetsCount = tweetsCount;
     }
 
-    public RoleDTO getRoleDTO() {
+    public String getRoleDTO() {
         return roleDTO;
     }
 
-    public void setRoleDTO(RoleDTO roleDTO) {
+    public void setRoleDTO(String roleDTO) {
         this.roleDTO = roleDTO;
     }
     

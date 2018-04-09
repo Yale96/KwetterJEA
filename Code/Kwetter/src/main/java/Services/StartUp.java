@@ -49,14 +49,16 @@ public class StartUp {
         Rol roleTwo = new Rol("user", "User of Kwetter");
         
         Profile pOne = new Profile("TestOne", "TestOne", "TestOne", "TestOne", "TestOne");
+        Profile pTwo = new Profile("TestTwo", "TestTwo", "TestTwo", "TestTwo", "TestTwo");
         
         User uOne = new User("yannickvanleeuwen@i-lion.nl", "", "Yale96", roleOne);
         uOne.setPassword("Yannick");
         User uTwo = new User("dennisvanleeuwen@i-lion.nl", "", "Admin", roleOne);
         uTwo.setPassword("Admin");
         uOne.setProfile(pOne);
+        uTwo.setProfile(pTwo);
         
-        Tweet tOne = new Tweet("Test", new Date());
+        //Tweet tOne = new Tweet("Test", new Date());
         HashTag hOne = new HashTag("#DitIsEenTest");
         rService.addRole(roleOne);
         rService.addRole(roleTwo);
@@ -65,8 +67,9 @@ public class StartUp {
         uService.addUser(uTwo);
         
         pService.addProfile(pOne);
+        pService.addProfile(pTwo);
         
-        tService.addTweet(tOne);
+        //tService.addTweet(tOne);
         
         hService.addHashTag(hOne);
     }

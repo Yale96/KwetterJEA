@@ -96,12 +96,17 @@ public class TweetResource {
     }
 
     @GET
-    @Path("/mentionid/{id}")
+    @Path("/mentionname")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTweetsByMentionId(@PathParam("id") long id, @Context HttpServletResponse response) {
+    public Response getTweetsByMentionId(@QueryParam("name") String name, @Context HttpServletResponse response) {
 
-        tweetService.getTweetsByMentionId(id);
-        return Response.ok(tweetService.getTweetsByMentionId(id)).build();
+        tweetService.getTweetsByMentionId(name);
+        List<TweetDTO> returnList = new ArrayList<>();
+        for(Tweet t: tweetService.getTweetsByMentionId(name))
+        {
+            returnList.add(new TweetDTO(t));
+        }
+        return Response.ok(returnList).build();
     }
 
     @GET

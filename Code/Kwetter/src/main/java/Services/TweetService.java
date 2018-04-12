@@ -128,9 +128,9 @@ public class TweetService {
         tweetDao.edit(tweet);
     }
     
-    public List<Tweet> getTweetsByMentionId(long id) {
-        List<Tweet> kweets = tweetDao.getTweetsByMentionId(id);
-        return kweets;
+    public List<Tweet> getTweetsByMentionId(String id) {
+        List<Tweet> tweets = tweetDao.getTweetsByMentionId(id);
+        return tweets;
     }
     
     public List<Tweet> getTweetsByUserId(long id) {

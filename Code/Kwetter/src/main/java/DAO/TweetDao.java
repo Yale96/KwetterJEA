@@ -24,7 +24,7 @@ public interface TweetDao {
     
     List<Tweet> getTweetsByHashtagId(long id);
     
-    List<Tweet> getTweetsByMentionId(long id);
+    List<Tweet> getTweetsByMentionId(String name);
     
     List<Tweet> getRecentTweetsByUserId(long id);
     

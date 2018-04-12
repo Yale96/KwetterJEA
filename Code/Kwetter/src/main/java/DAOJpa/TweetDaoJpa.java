@@ -65,9 +65,9 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     }
 
     @Override
-    public List<Tweet> getTweetsByMentionId(long id) {
-        if (id >= 0) 
-            return spareUnnecessaryWork("select t from Tweet t where t.content LIKE '%@ (select user.name from user u where u.id = " + id + ") %'");
+    public List<Tweet> getTweetsByMentionId(String name) {
+        if (name != "") 
+            return spareUnnecessaryWork("SELECT t FROM Tweet t WHERE t.content LIKE '%@" + name + "%'");
         return new ArrayList<>();
     }
     

@@ -23,6 +23,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
@@ -50,11 +51,11 @@ public class UserResource {
     }
 
     @GET
-    @Path("{id}")
+    @Path("/singlge")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getUser(@PathParam("id") Long id) {
-        User user = userService.getById(id);
-        return user;
+    public Response getUser(@QueryParam("name") String name) {
+        User user = userService.getByName(name);
+        return Response.ok(new UserDTO(user)).build();
     }
     
    @PUT

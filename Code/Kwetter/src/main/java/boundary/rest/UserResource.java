@@ -51,7 +51,7 @@ public class UserResource {
     }
 
     @GET
-    @Path("/singlge")
+    @Path("/single")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@QueryParam("name") String name) {
         User user = userService.getByName(name);

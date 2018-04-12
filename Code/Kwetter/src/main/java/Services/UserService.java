@@ -153,7 +153,9 @@ public class UserService {
     }
     
     public User getByName(String name) {
-        return userDao.getByName(name);
+        User u = userDao.getByName(name);
+        String s = "Debug";
+        return u;
     }
     
     public void registerUser(String userName, String password)

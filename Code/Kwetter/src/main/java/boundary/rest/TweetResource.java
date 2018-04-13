@@ -153,13 +153,13 @@ public class TweetResource {
     @POST
     @Path("/like")
     @Produces(MediaType.APPLICATION_JSON)
-    public void likeTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+    public Response likeTweet(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
         poster.addLike(tweet);
         userService.edit(poster);
         tweetService.editTweet(tweet);
-        //return Response.ok(tweetService.getTweets()).build();
+        return Response.ok(getAll()).build();
     }
 
     @POST
@@ -177,13 +177,13 @@ public class TweetResource {
     @POST
     @Path("/flag")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response flagTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+    public Response flagTweet(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
         poster.addFlag(tweet);
         userService.edit(poster);
         tweetService.editTweet(tweet);
-        return Response.ok().build();
+        return Response.ok(getAll()).build();
     }
 
     @POST

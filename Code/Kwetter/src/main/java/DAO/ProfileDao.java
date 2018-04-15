@@ -20,6 +20,8 @@ public interface ProfileDao {
     void edit(Profile profile);
 
     Profile findById(Long id);
+    
+    Profile findByName(String name);
 
     ArrayList<Profile> getProfiles();
 }

@@ -29,8 +29,6 @@ public class TweetDTO {
     
     private long flagsCount;
     
-    private long responsesCount;
-    
     public TweetDTO()
     {
         
@@ -42,10 +40,13 @@ public class TweetDTO {
         this.content = tweet.getContent();
         this.timeStamp = tweet.getTimeStamp();
         this.tagsCount = tweet.getHashtags().size();
+        this.flagsCount = tweet.getFlags().size();
+        this.likesCount = tweet.getLikes().size();
+        this.mentionsCount = tweet.getMentionedUsers().size();
         this.owner = tweet.getOwner().getUsername();
     }
    
-    public TweetDTO(long id, String owner, String content, Date timeStamp, long tagsCount, long mentionsCount, long likesCount, long flagsCount, long responsesCount)
+    public TweetDTO(long id, String owner, String content, Date timeStamp, long tagsCount, long mentionsCount, long likesCount, long flagsCount)
     {
         this.id = id;
         this.owner = owner;
@@ -55,7 +56,6 @@ public class TweetDTO {
         this.mentionsCount = mentionsCount;
         this.likesCount = likesCount;
         this.flagsCount = flagsCount;
-        this.responsesCount = responsesCount;
     }
 
     public long getId() {
@@ -121,14 +121,4 @@ public class TweetDTO {
     public void setFlagsCount(long flagsCount) {
         this.flagsCount = flagsCount;
     }
-
-    public long getResponsesCount() {
-        return responsesCount;
-    }
-
-    public void setResponsesCount(long responsesCount) {
-        this.responsesCount = responsesCount;
-    }
-    
-    
 }

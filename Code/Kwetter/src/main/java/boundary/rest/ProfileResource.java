@@ -10,6 +10,7 @@ import Services.ProfileService;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,6 +18,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -55,14 +57,27 @@ public class ProfileResource {
         profileService.addProfile(p);
         return Response.ok(profileService.getProfiles()).build();
     }
+   
+   @PUT
+   @Path("/edit")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public Response updateProfile(@Context HttpHeaders httPheaders, Profile p)
+   {
+      profileService.editProfilePicture(p.getId(), p.getPicture());
+      profileService.editProfileName(p.getId(), p.getName());
+      profileService.editWeb(p.getId(), p.getWeb());
+      profileService.editBio(p.getId(), p.getBio());
+      profileService.editLocation(p.getId(), p.getLocation());
+      return Response.ok(profileService.getProfiles()).build();
+   }
     
    @PUT
    @Path("/edit/picture")
    @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
-   public Response updatePicture(@Context HttpHeaders httPheaders, Profile p)
+   public Response updatePicture(@QueryParam("id") int id, @QueryParam("toEdit") String edits, @Context HttpServletResponse response)
    {
-      profileService.editProfilePicture(p.getId(), p.getPicture());
+      profileService.editProfilePicture(id, edits);
       return Response.ok(profileService.getProfiles()).build();
    }
    
@@ -70,9 +85,9 @@ public class ProfileResource {
    @Path("/edit/name")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response updateName(@Context HttpHeaders httPheaders, Profile p)
+   public Response updateName(@QueryParam("id") int id, @QueryParam("toEdit") String edits, @Context HttpServletResponse response)
    {
-      profileService.editProfileName(p.getId(), p.getName());
+      profileService.editProfileName(id, edits);
       return Response.ok(profileService.getProfiles()).build();
    }
    
@@ -80,9 +95,9 @@ public class ProfileResource {
    @Path("/edit/web")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response updateWeb(@Context HttpHeaders httPheaders, Profile p)
+   public Response updateWeb(@QueryParam("id") int id, @QueryParam("toEdit") String edits, @Context HttpServletResponse response)
    {
-      profileService.editWeb(p.getId(), p.getWeb());
+      profileService.editWeb(id, edits);
       return Response.ok(profileService.getProfiles()).build();
    }
    
@@ -90,9 +105,9 @@ public class ProfileResource {
    @Path("/edit/bio")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response updateBio(@Context HttpHeaders httPheaders, Profile p)
+   public Response updateBio(@QueryParam("id") int id, @QueryParam("toEdit") String edits, @Context HttpServletResponse response)
    {
-      profileService.editBio(p.getId(), p.getBio());
+      profileService.editBio(id, edits);
       return Response.ok(profileService.getProfiles()).build();
    }
    
@@ -100,9 +115,9 @@ public class ProfileResource {
    @Path("/edit/location")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response updateLocation(@Context HttpHeaders httPheaders, Profile p)
+   public Response updateLocation(@QueryParam("id") int id, @QueryParam("toEdit") String edits, @Context HttpServletResponse response)
    {
-      profileService.editLocation(p.getId(), p.getLocation());
+      profileService.editLocation(id, edits);
       return Response.ok(profileService.getProfiles()).build();
    }
 }

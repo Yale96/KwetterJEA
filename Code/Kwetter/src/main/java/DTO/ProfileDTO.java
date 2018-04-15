@@ -5,6 +5,8 @@
  */
 package DTO;
 
+import Models.Profile;
+
 /**
  *
  * @author Yannick van Leeuwen
@@ -23,7 +25,7 @@ public class ProfileDTO {
     private String picture;
     
     public ProfileDTO() {
-
+        
     }
 
     public ProfileDTO(long id, String name, String location, String web, String bio, String picture){
@@ -34,6 +36,15 @@ public class ProfileDTO {
         this.bio = bio;
         this.picture = picture;
     }  
+
+    public ProfileDTO(Profile p) {
+        this.id = p.getId();
+        this.picture = p.getPicture();
+        this.name = p.getName();
+        this.web = p.getWeb();
+        this.location = p.getLocation();
+        this.bio = p.getBio();
+    }
 
     public long getId() {
         return id;

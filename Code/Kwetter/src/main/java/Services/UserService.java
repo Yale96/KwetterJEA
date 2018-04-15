@@ -101,10 +101,16 @@ public class UserService {
     
     public void addProfile(long id, long profileId)
     {
-        Profile toAdd = profileDao.findById(profileId);
+        Profile p = new Profile();
+        profileDao.create(p);
         User user = userDao.findById(id);
-        user.setProfile(toAdd);
+        user.setProfile(p);
         userDao.edit(user);
+    }
+    
+    public Profile getProfileyName(String name)
+    {
+        return profileDao.findByName(name);
     }
     
     public List<Tweet> getOwnAndOthersTweets(long id) {

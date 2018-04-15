@@ -51,4 +51,15 @@ public class ProfileDaoJpa extends DaoFacade<Profile> implements ProfileDao {
          Query query = em.createQuery("SELECT p FROM Profile p");
          return  new ArrayList<>(query.getResultList());
     }
+
+    @Override
+    public Profile findByName(String name) {
+        Query quer = em.createQuery("SELECT u FROM User u WHERE u.username like '%" + name + "%'");
+        List<User> results = quer.getResultList();
+        User toSearch = results.get(0);
+        Query query = em.createQuery("SELECT p FROM Profile p where p.id = " + toSearch.getProfile().getId() + "");
+        List<Profile> result = query.getResultList();
+        System.out.println("count: " + result.size());
+        return result.get(0);
+    }
 }

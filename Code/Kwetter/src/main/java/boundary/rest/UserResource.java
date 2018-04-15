@@ -5,7 +5,9 @@
  */
 package boundary.rest;
 
+import DTO.ProfileDTO;
 import DTO.UserDTO;
+import Models.Profile;
 import Models.User;
 import Services.UserService;
 import java.util.ArrayList;
@@ -56,6 +58,13 @@ public class UserResource {
     public Response getUser(@QueryParam("name") String name) {
         User user = userService.getByName(name);
         return Response.ok(new UserDTO(user)).build();
+    }
+    @GET
+    @Path("/getProfileByName")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProfileByName(@QueryParam("name") String name) {
+        Profile p = userService.getProfileyName(name);
+        return Response.ok(new ProfileDTO(p)).build();
     }
     
    @PUT

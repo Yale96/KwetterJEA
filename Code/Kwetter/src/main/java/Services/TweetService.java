@@ -134,13 +134,13 @@ public class TweetService {
     }
     
     public List<Tweet> getTweetsByUserId(long id) {
-        List<Tweet> kweets = tweetDao.getTweetsByUserId(id);
-        return kweets;
+        List<Tweet> tweets = tweetDao.getTweetsByUserId(id);
+        return tweets;
     }
 
     public List<Tweet> getRecentTweetsByUserId(long id) {
         List<Tweet> tweets = tweetDao.getRecentTweetsByUserId(id);
-        Collections.reverse(tweets);
+        //Collections.reverse(tweets);
         return tweets;
     }
     

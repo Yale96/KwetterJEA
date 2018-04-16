@@ -110,19 +110,28 @@ public class TweetResource {
     }
 
     @GET
-    @Path("/userid/{id}")
+    @Path("/userid")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTweetsByUserId(@PathParam("id") long id, @Context HttpServletResponse response) {
-        tweetService.getTweetsByUserId(id);
-        return Response.ok(tweetService.getTweetsByUserId(id)).build();
+    public Response getTweetsByUserId(@QueryParam("id") long id, @Context HttpServletResponse response) {
+        List<TweetDTO> returnList = new ArrayList<TweetDTO>();
+        for(Tweet t : tweetService.getTweetsByUserId(id))
+        {
+            returnList.add(new TweetDTO(t));
+        }
+        return Response.ok(returnList).build();
     }
 
     @GET
-    @Path("/userid/recent/{id}")
+    @Path("/userid/recent")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRecentTweetsByUserId(@PathParam("id") long id, @Context HttpServletResponse response) {
-        tweetService.getRecentTweetsByUserId(id);
-        return Response.ok(tweetService.getRecentTweetsByUserId(id)).build();
+    public Response getRecentTweetsByUserId(@QueryParam("id") long id, @Context HttpServletResponse response) {
+        List<TweetDTO> returnList = new ArrayList<TweetDTO>();
+        for(Tweet t : tweetService.getRecentTweetsByUserId(id))
+        {
+            returnList.add(new TweetDTO(t));
+        }
+        
+        return Response.ok(returnList.get(0)).build();
     }
 
     @GET

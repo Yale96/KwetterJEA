@@ -5,6 +5,8 @@
  */
 package DTO;
 import Models.User;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -30,6 +32,8 @@ public class UserDTO {
     
     private long flagsCount;
     
+    private List<String> followers;
+    
     private long mentionsCount;
     
     private long tweetsCount;
@@ -43,6 +47,7 @@ public class UserDTO {
     
     public UserDTO(User user)
     {
+        followers = new ArrayList<String>();
         this.id = user.getId();
         this.email = user.getEmail();
         this.username = user.getUsername();
@@ -54,6 +59,10 @@ public class UserDTO {
         this.mentionsCount = user.getMentions().size();
         this.tweetsCount = user.getTweets().size();
         this.roleDTO = user.getRol().getType();
+        for(User u: user.getFollowers())
+        {
+            followers.add(u.getUsername());
+        }
     }
     
     public UserDTO(long id, int profileDTO, String email, String username, String password, long supersCount, long followersCount, long likesCount, long flagsCount, long mentionsCount, long tweetsCount, String roleDTO)
@@ -166,6 +175,14 @@ public class UserDTO {
 
     public void setRoleDTO(String roleDTO) {
         this.roleDTO = roleDTO;
+    }
+
+    public List<String> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<String> followers) {
+        this.followers = followers;
     }
     
     

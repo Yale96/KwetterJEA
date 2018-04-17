@@ -7,7 +7,9 @@ package DAOJpa;
 
 import DAO.DaoFacade;
 import DAO.JPA;
+import DAO.ProfileDao;
 import DAO.UserDao;
+import Models.Profile;
 import Models.Tweet;
 import Models.User;
 import Services.TweetService;
@@ -18,6 +20,7 @@ import io.sentry.event.interfaces.ExceptionInterface;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -31,6 +34,9 @@ import javax.persistence.TypedQuery;
 public class UserDaoJpa extends DaoFacade<User> implements UserDao {
     @PersistenceContext
     private EntityManager em;
+    
+    @Inject @JPA
+    private ProfileDao profileDao;
     
     public UserDaoJpa() {
         super(User.class);
@@ -144,8 +150,11 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
         if(userName != null && !userName.isEmpty() && password != null && !password.isEmpty())
         {
             User user = new User();
+            Profile p = new Profile();
             user.setUsername(userName);
             user.setPassword(password);
+            profileDao.create(p);
+            user.setProfile(p);
             create(user);
         }
     }

@@ -67,6 +67,18 @@ public class UserResource {
         return Response.ok(new ProfileDTO(p)).build();
     }
     
+    @GET
+    @Path("/getfollowing")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFollowing(@QueryParam("id") Long id) {
+        List<String> followings = new ArrayList<>();
+        for(User u: userService.getLeaders(id))
+        {
+            followings.add(u.getUsername());
+        }
+        return Response.ok(followings).build();
+    }
+    
    @PUT
    @Path("/edit/role")
    @Produces(MediaType.APPLICATION_JSON)
@@ -147,19 +159,19 @@ public class UserResource {
    @POST
    @Path("/addFollower")
    @Produces(MediaType.APPLICATION_JSON)
-   public void addFollower(@FormParam("id") long id, @FormParam("superid") long superId, @Context HttpServletResponse response)
+   public Response addFollower(@QueryParam("id") long id, @QueryParam("superid") long superId, @Context HttpServletResponse response)
    {
        userService.addFollower(id, superId);
-       //return Response.ok(userService.getFollowers(id)).build();
+       return Response.ok(new UserDTO(userService.getById(id))).build();
    }
    
    @POST
    @Path("/removeFollower")
    @Produces(MediaType.APPLICATION_JSON)
-   public Response removeFollower(@FormParam("id") long id, @FormParam("superid") long superId, @Context HttpServletResponse response)
+   public Response removeFollower(@QueryParam("id") long id, @QueryParam("superid") long superId, @Context HttpServletResponse response)
    {
        userService.removeFollower(id, superId);
-       return Response.ok(getAll()).build();
+       return Response.ok(new UserDTO(userService.getById(id))).build();
    }
    
    @DELETE

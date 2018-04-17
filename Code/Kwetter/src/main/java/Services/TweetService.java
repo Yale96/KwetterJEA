@@ -71,6 +71,7 @@ public class TweetService {
     
     public List<Tweet> getTrendingToppics(String hashTagContent) {
         HashTag hashtag = tagDao.getByContent(hashTagContent);
+        String s = "Debug";
         if (hashtag != null)
             return tweetDao.getTweetsByHashtagId(hashtag.getId());
         return new ArrayList<>();

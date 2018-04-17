@@ -44,9 +44,15 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     
     @Override
     public List<Tweet> getMatchesByContent(String content) {
-        if (content == null)
+        if (content != null)
+        {
+            Query query = em.createQuery("SELECT t FROM Tweet t WHERE t.content LIKE '%" + content + "%'");
+            ArrayList<Tweet> returnList = new ArrayList<>(query.getResultList());
+            String s = "Debug";
+            return returnList;
+        }
+        else
             return new ArrayList<>();
-        return spareUnnecessaryWork("select t from Tweet t where t.content LIKE '%" + content + "%'");
     }
     
     @Override
@@ -65,7 +71,13 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     @Override
     public List<Tweet> getTweetsByHashtagId(long id) {
         if (id >= 0)
-            return spareUnnecessaryWork("select t from Tweet t where t.id = (select x.tweet_hashtag_id from tweet_hashtag x where x.hashtag_hashtag_id = " + id + ")");
+        {
+            Query qwerty = em.createQuery("SELECT x.tweet_hashtag_id FROM tweet_hashtag x WHERE x.hashtag_hashtag_id = " + id + "");
+            Query query = em.createQuery("SELECT t FROM Tweet t WHERE t.id = (SELECT x.tweet_hashtag_id FROM tweet_hashtag x WHERE x.hashtag_hashtag_id = " + id + ")");
+            ArrayList<Tweet> returnList = new ArrayList<>(query.getResultList());
+            String s = "Debug";
+            return returnList;
+        }
         return new ArrayList<>();
     }
 

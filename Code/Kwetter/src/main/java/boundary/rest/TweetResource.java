@@ -60,12 +60,15 @@ public class TweetResource {
     }
 
     @GET
-    @Path("/bycontent/{content}")
+    @Path("/bycontent")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTweetsByContent(@PathParam("content") String content, @Context HttpServletResponse response) {
-
-        tweetService.getMatchesByContent(content);
-        return Response.ok(tweetService.getMatchesByContent(content)).build();
+    public Response getTweetsByContent(@QueryParam("content") String content, @Context HttpServletResponse response) {
+        List<TweetDTO> returnList = new ArrayList<TweetDTO>();
+        for(Tweet t: tweetService.getMatchesByContent(content))
+        {
+            returnList.add(new TweetDTO(t));
+        }
+        return Response.ok(returnList).build();
     }
 
     @POST
@@ -87,12 +90,16 @@ public class TweetResource {
     }
 
     @GET
-    @Path("/hashtagid/{id}")
+    @Path("/hashtagid")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTweetsByHashtagId(@PathParam("id") long id, @Context HttpServletResponse response) {
+    public Response getTweetsByHashtagId(@QueryParam("id") long id, @Context HttpServletResponse response) {
 
-        tweetService.getTweetByHashtagId(id);
-        return Response.ok(tweetService.getTweetByHashtagId(id)).build();
+        List<TweetDTO> returnList = new ArrayList<TweetDTO>();
+        for(Tweet t: tweetService.getTweetByHashtagId(id))
+        {
+            returnList.add(new TweetDTO(t));
+        }
+        return Response.ok(returnList).build();
     }
 
     @GET
@@ -144,11 +151,15 @@ public class TweetResource {
     }
 
     @GET
-    @Path("/hashtagcontent/{content}")
+    @Path("/hashtagcontent")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTrendingTopics(@PathParam("content") String content, @Context HttpServletResponse response) {
-        tweetService.getTrendingToppics(content);
-        return Response.ok(tweetService.getTweets()).build();
+    public Response getTrendingTopics(@QueryParam("content") String content, @Context HttpServletResponse response) {
+        List<TweetDTO> returnList = new ArrayList<TweetDTO>();
+        for(Tweet t : tweetService.getTrendingToppics(content))
+        {
+            returnList.add(new TweetDTO(t));
+        }
+        return Response.ok(returnList).build();
     }
 
     @GET

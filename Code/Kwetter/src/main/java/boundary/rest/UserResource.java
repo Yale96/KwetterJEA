@@ -98,20 +98,20 @@ public class UserResource {
    }
    
    @GET
-   @Path("/OwnAndOthers/{id}")
+   @Path("/OwnAndOthers")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response getOwnAndOthers(@PathParam("id") Long id)
+   public Response getOwnAndOthers(@QueryParam("id") Long id)
    {
        userService.getOwnAndOthersTweets(id);
        return Response.ok(userService.getOwnAndOthersTweets(id)).build();
    }
    
    @GET
-   @Path("/getByName/{name}")
+   @Path("/getByName")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response getByName(@PathParam("name") String name)
+   public Response getByName(@QueryParam("name") String name)
    {
        userService.getByName(name);
        return Response.ok(userService.getByName(name)).build();

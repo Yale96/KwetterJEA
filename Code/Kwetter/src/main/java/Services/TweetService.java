@@ -140,7 +140,7 @@ public class TweetService {
 
     public List<Tweet> getRecentTweetsByUserId(long id) {
         List<Tweet> tweets = tweetDao.getRecentTweetsByUserId(id);
-        //Collections.reverse(tweets);
+        Collections.reverse(tweets);
         return tweets;
     }
     

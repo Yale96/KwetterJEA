@@ -53,7 +53,12 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     public List<Tweet> getTweetsByUserId(long id)
     {
         if (id >= 0)
-            return spareUnnecessaryWork("SELECT t FROM Tweet t WHERE t.owner_id = " + id + "");
+        {
+            Query query = em.createQuery("SELECT t FROM Tweet t WHERE t.owner.id = " + id + "");
+            ArrayList<Tweet> returnList = new ArrayList<>(query.getResultList());
+            String s = "Debug";
+            return returnList;
+        }
         return new ArrayList<>();
     }
     
@@ -74,7 +79,12 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     @Override
     public List<Tweet> getRecentTweetsByUserId(long id) {
         if (id >= 0)
-            return spareUnnecessaryWork("SELECT * FROM Tweet t WHERE t.owner_id = " + id + " ORDER BY t.TIMESTAMP DESC");
+        {
+            Query query = em.createQuery("SELECT t FROM Tweet t WHERE t.owner.id = " + id + "");
+            ArrayList<Tweet> returnList = new ArrayList<>(query.getResultList());
+            String s = "Debug";
+            return returnList;
+        } 
         return new ArrayList<>();
     }
     

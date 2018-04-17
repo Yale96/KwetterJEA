@@ -159,15 +159,15 @@ public class UserResource {
    public Response removeFollower(@FormParam("id") long id, @FormParam("superid") long superId, @Context HttpServletResponse response)
    {
        userService.removeFollower(id, superId);
-       return Response.ok(userService.getFollowers(id)).build();
+       return Response.ok(getAll()).build();
    }
    
    @DELETE
    @Path("/removeTweet")
    @Produces(MediaType.APPLICATION_JSON)
-   public Response removeTweet(@FormParam("id") long id, @FormParam("tweetid") long tweetId, @Context HttpServletResponse response)
+   public Response removeTweet(@QueryParam("id") long id, @QueryParam("tweetid") long tweetId, @Context HttpServletResponse response)
    {
        userService.deleteTweet(id, tweetId);
-       return Response.ok(userService.getTweets(id)).build();
+       return Response.ok(getAll()).build();
    }
 }

@@ -48,8 +48,8 @@ public class StartUp {
         Rol roleOne = new Rol("admin", "SuperUser");
         Rol roleTwo = new Rol("user", "User of Kwetter");
         
-        Profile pOne = new Profile("TestOne", "TestOne", "TestOne", "TestOne", "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-1/p160x160/29513296_1186175838186308_7575881302090863203_n.jpg?_nc_cat=0&oh=0589767158c14270bd39109a08f463a2&oe=5B735461");
-        Profile pTwo = new Profile("TestTwo", "TestTwo", "TestTwo", "TestTwo", "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-1/p160x160/29513296_1186175838186308_7575881302090863203_n.jpg?_nc_cat=0&oh=0589767158c14270bd39109a08f463a2&oe=5B735461");
+        Profile pOne = new Profile("Yannick van Leeuwen", "Tilburg, Netherlands", "www.nu.nl", "Sportief en gaat graag op stap.", "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-1/p160x160/29513296_1186175838186308_7575881302090863203_n.jpg?_nc_cat=0&oh=0589767158c14270bd39109a08f463a2&oe=5B735461");
+        Profile pTwo = new Profile("Dennis van Leeuwen", "Tilburg, Netherlands", "www.nu.nl", "Sportief en gaat graag op stap.", "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-1/p160x160/29513296_1186175838186308_7575881302090863203_n.jpg?_nc_cat=0&oh=0589767158c14270bd39109a08f463a2&oe=5B735461");
         
         User uOne = new User("yannickvanleeuwen@i-lion.nl", "", "Yale96", roleOne);
         uOne.setPassword("Yannick");

@@ -219,9 +219,9 @@ public class TweetResource {
     @POST
     @Path("/remove")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response removeTweet(@FormParam("id") long id, @Context HttpServletResponse response) {
+    public Response removeTweet(@QueryParam("id") long id, @Context HttpServletResponse response) {
         tweetService.removeTweet(id);
-        return Response.ok(tweetService.getById(id)).build();
+        return Response.ok(getAll()).build();
     }
 
     @GET

@@ -77,8 +77,8 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
     }
     
     @Override
-    public void addFollower(long id, long idLeider) {
-        if (id >= 0 && idLeider >= 0) {
+    public void addFollower(long id, String idLeider) {
+        if (id >= 0 && idLeider != "") {
             try {
                 User volger = find(id);
                 User leider = find(idLeider);
@@ -99,13 +99,19 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
             }
         }
     }
-
+    
     @Override
-    public void removeFollower(long id, long idLeider) {
-        if (id >= 0 && idLeider >= 0) {
+    public User findByName(String name)
+    {
+        return (User) em.createQuery("SELECT u FROM User u WHERE u.username = '" + name + "'").getSingleResult();
+    }
+    
+    @Override
+    public void removeFollower(long id, String name) {
+        if (id >= 0 && name != null) {
             try {
                 User volger = find(id);
-                User leider = find(idLeider);
+                User leider = findByName(name);
                 leider.removeFollower(volger);
                 update(volger);
                 update(leider);

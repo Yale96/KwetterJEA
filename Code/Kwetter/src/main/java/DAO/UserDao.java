@@ -19,9 +19,9 @@ public interface UserDao {
     
     User getByName(String name);
     
-    void addFollower(long id, long idLeider);
+    void addFollower(long id, String name);
     
-    void removeFollower(long id, long idLeider);
+    void removeFollower(long id, String name);
     
     List<Tweet> getTweets(long id);
     
@@ -32,6 +32,8 @@ public interface UserDao {
     void remove(User user);
 
     User findById(Long id);
+    
+    User findByName(String name);
 
     List<User> getUsers();
     

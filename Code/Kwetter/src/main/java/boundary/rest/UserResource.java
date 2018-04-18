@@ -10,7 +10,15 @@ import DTO.UserDTO;
 import Models.Profile;
 import Models.User;
 import Services.UserService;
+import Utils.KeyGenerator;
+import Utils.PasswordUtils;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.security.Key;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -19,6 +27,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -28,7 +40,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import javax.ws.rs.core.Response;
+import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -40,6 +55,18 @@ public class UserResource {
 
     @Inject
     private UserService userService;
+    
+    @Context
+    private UriInfo uriInfo;
+
+    @Inject
+    private Logger logger;
+
+    @Inject
+    private KeyGenerator keyGenerator;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -159,18 +186,18 @@ public class UserResource {
    @POST
    @Path("/addFollower")
    @Produces(MediaType.APPLICATION_JSON)
-   public Response addFollower(@QueryParam("id") long id, @QueryParam("superid") long superId, @Context HttpServletResponse response)
+   public Response addFollower(@QueryParam("id") long id, @QueryParam("superName") String superName, @Context HttpServletResponse response)
    {
-       userService.addFollower(id, superId);
+       userService.addFollower(id, superName);
        return Response.ok(new UserDTO(userService.getById(id))).build();
    }
    
    @POST
    @Path("/removeFollower")
    @Produces(MediaType.APPLICATION_JSON)
-   public Response removeFollower(@QueryParam("id") long id, @QueryParam("superid") long superId, @Context HttpServletResponse response)
+   public Response removeFollower(@QueryParam("id") long id, @QueryParam("superName") String superName, @Context HttpServletResponse response)
    {
-       userService.removeFollower(id, superId);
+       userService.removeFollower(id, superName);
        return Response.ok(new UserDTO(userService.getById(id))).build();
    }
    
@@ -182,4 +209,52 @@ public class UserResource {
        userService.deleteTweet(id, tweetId);
        return Response.ok(getAll()).build();
    }
+   
+   @POST
+   @Path("/login")
+    public Response authenticateUser(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletResponse response) {
+        try {
+ 
+            // Authenticate the user using the credentials provided
+            User u = authenticate(login, password);
+ 
+            // Issue a token for the user
+            String token = issueToken(login, u.getId());
+ 
+            // Return the token on the response
+            return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+ 
+        } catch (Exception e) {
+            return Response.status(UNAUTHORIZED).build();
+        }
+    }
+ 
+    private User authenticate(String login, String password) throws Exception {
+        TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_LOGIN_PASSWORD, User.class);
+        query.setParameter("username", login);
+        query.setParameter("password", PasswordUtils.digestPassword(password));
+        User user = query.getSingleResult();
+
+        if (user == null)
+            throw new SecurityException("Invalid user/password");
+        
+        return user;
+    }
+
+    private String issueToken(String login, long id) {
+        Key key = keyGenerator.generateKey();
+        String jwtToken = Jwts.builder()
+                .setSubject(login + ", " + id )
+                .setIssuer(uriInfo.getAbsolutePath().toString())
+                .setIssuedAt(new Date())
+                .setExpiration(toDate(LocalDateTime.now().plusMinutes(15L)))
+                .signWith(SignatureAlgorithm.HS512, key)
+                .compact();
+        logger.info("#### generating token for a key : " + jwtToken + " - " + key);
+        return jwtToken;
+    }
+    
+    private Date toDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
 }

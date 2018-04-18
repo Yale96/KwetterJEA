@@ -5,12 +5,14 @@
  */
 package Models;
 
+import Utils.PasswordUtils;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
+    @NamedQuery(name = User.FIND_BY_LOGIN_PASSWORD, query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
     @NamedQuery(name = "User.count", query = "SELECT COUNT(u) FROM User u")})
 
 @XmlRootElement
@@ -70,7 +73,9 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_name", referencedColumnName = "type")
     private Rol role;
-
+    
+    public static final String FIND_BY_LOGIN_PASSWORD = "User.findByLoginAndPassword";
+    
     public User() {
         supers = new ArrayList<>();
         followers = new ArrayList<>();
@@ -86,7 +91,12 @@ public class User implements Serializable {
         this.username = username;
         this.role = rol;
     }
-
+    
+    @PrePersist
+    private void setUUID() {
+        password = PasswordUtils.digestPassword(password);
+    }
+    
     public void setId(long id) {
         this.id = id;
     }
@@ -132,25 +142,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        String hashstring = null;
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes("UTF-8"));
-            StringBuilder hexString = new StringBuilder();
-
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-
-            hashstring = hexString.toString();
-        } catch (Exception x) {
-            System.out.println(x);
-        }
-        this.password = (hashstring == null || hashstring.isEmpty()) ? password : hashstring;
+        this.password = password;
     }
 
     public List<User> getLeaders() {

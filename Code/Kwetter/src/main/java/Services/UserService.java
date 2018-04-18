@@ -61,13 +61,17 @@ public class UserService {
         return userDao.findById(id);
     }
     
-    public void addFollower(long id, long idLeader) {
-        if (id != idLeader)
-            userDao.addFollower(id, idLeader);
+    public void addFollower(long id, String leaderName) {
+        User u = userDao.findById(id);
+        User ut = userDao.findByName(leaderName);
+        if(u.getId() != ut.getId())
+            userDao.addFollower(id, leaderName);
     }
-    public void removeFollower(long id, long idLeader) {
-        if (id != idLeader)
-            userDao.removeFollower(id, idLeader);
+    public void removeFollower(long id, String leaderName) {
+        User u = userDao.findById(id);
+        User ut = userDao.findByName(leaderName);
+        if(u.getId() != ut.getId())
+            userDao.removeFollower(id, leaderName);
     }
     
     public void edit(User user)

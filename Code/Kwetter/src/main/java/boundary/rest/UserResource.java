@@ -212,6 +212,7 @@ public class UserResource {
    
    @POST
    @Path("/login")
+   @Produces(MediaType.APPLICATION_JSON)
     public Response authenticateUser(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletResponse response) {
         try {
  
@@ -222,7 +223,8 @@ public class UserResource {
             String token = issueToken(login, u.getId());
  
             // Return the token on the response
-            return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+            String returnString = token;
+            return Response.ok(returnString).build();
  
         } catch (Exception e) {
             return Response.status(UNAUTHORIZED).build();

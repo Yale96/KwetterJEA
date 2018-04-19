@@ -39,7 +39,7 @@ public interface UserDao {
 
     List<User> getUsers();
     
-    void register(String userName, String password);
+    User register(String userName, String password);
     
     boolean login(String userName, String password);
 }

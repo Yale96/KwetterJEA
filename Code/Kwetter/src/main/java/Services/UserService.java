@@ -173,9 +173,11 @@ public class UserService {
         return u;
     }
     
-    public void registerUser(String userName, String password)
+    public User registerUser(String userName, String password)
     {
-        userDao.register(userName, password);
+        User u = userDao.register(userName, password);
+        String s = "Debug";
+        return u;
     }
     
     public boolean login(String userName, String password)

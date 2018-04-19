@@ -8,8 +8,10 @@ package DAOJpa;
 import DAO.DaoFacade;
 import DAO.JPA;
 import DAO.ProfileDao;
+import DAO.RolDao;
 import DAO.UserDao;
 import Models.Profile;
+import Models.Rol;
 import Models.Tweet;
 import Models.User;
 import Services.TweetService;
@@ -37,6 +39,9 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
     
     @Inject @JPA
     private ProfileDao profileDao;
+    
+    @Inject @JPA
+    private RolDao rolDao;
     
     public UserDaoJpa() {
         super(User.class);
@@ -160,17 +165,25 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
     }
 
     @Override
-    public void register(String userName, String password) {
+    public User register(String userName, String password) {
         if(userName != null && !userName.isEmpty() && password != null && !password.isEmpty())
         {
             User user = new User();
-            Profile p = new Profile();
+            Profile p = new Profile("<vul in>", "<vul in>", "<vul in>", "<vul in>", "<vul in>");
+            Rol role = rolDao.findById(2l);
             user.setUsername(userName);
             user.setPassword(password);
+            user.setEmail(userName + "@student.fontys.nl");
+            user.setRol(role);
             profileDao.create(p);
+            rolDao.create(role);
             user.setProfile(p);
             create(user);
+            
+            String s = "Debug";
+            return user;
         }
+        return null;
     }
 
     @Override

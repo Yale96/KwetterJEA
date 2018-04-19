@@ -220,6 +220,15 @@ public class UserResource {
    }
    
    @POST
+   @Path("/register")
+   @Produces(MediaType.APPLICATION_JSON)
+   public Response registerUser(@QueryParam("username") String username, @QueryParam("password") String password, @Context HttpServletResponse response)
+   {
+       User u = userService.registerUser(username, password);
+       return Response.ok(new UserDTO(u)).build();
+   }
+   
+   @POST
    @Path("/login")
    @Produces(MediaType.APPLICATION_JSON)
     public Response authenticateUser(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletResponse response) {

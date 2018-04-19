@@ -48,6 +48,14 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
     }
     
     @Override
+    public long findIdByName(String name)
+    {
+        long l = (long) em.createQuery("SELECT u.id FROM User u WHERE u.username = '" + name + "'").getSingleResult();
+        String s = "Debug";
+        return l; 
+    }
+    
+    @Override
     public User getByName(String name) {
         if (name == null || name.isEmpty())
             return null;

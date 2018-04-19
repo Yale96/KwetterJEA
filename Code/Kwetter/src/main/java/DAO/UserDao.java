@@ -23,6 +23,8 @@ public interface UserDao {
     
     void removeFollower(long id, String name);
     
+    long findIdByName(String name);
+    
     List<Tweet> getTweets(long id);
     
     public void deleteTweet(long id, long tweetId);

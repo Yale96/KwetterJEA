@@ -74,6 +74,11 @@ public class UserService {
             userDao.removeFollower(id, leaderName);
     }
     
+    public long getIdByTheName(String name)
+    {
+        return userDao.findIdByName(name);
+    }
+    
     public void edit(User user)
     {
         userDao.edit(user);

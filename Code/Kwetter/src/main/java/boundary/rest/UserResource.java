@@ -201,6 +201,15 @@ public class UserResource {
        return Response.ok(new UserDTO(userService.getById(id))).build();
    }
    
+   @GET
+   @Path("/byname")
+   @Produces(MediaType.APPLICATION_JSON)
+   public Response removeFollower(@QueryParam("name") String name, @Context HttpServletResponse response)
+   {
+       long l = userService.getIdByTheName(name);
+       return Response.ok(l).build();
+   }
+   
    @DELETE
    @Path("/removeTweet")
    @Produces(MediaType.APPLICATION_JSON)

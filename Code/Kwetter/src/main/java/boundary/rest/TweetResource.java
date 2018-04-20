@@ -183,7 +183,39 @@ public class TweetResource {
         Tweet tweet = tweetService.getById(id);
         return tweet;
     }
-
+    
+    @GET
+    @Path("/checkflag")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean checkFlag(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+        User poster = userService.getByName(name);
+        Tweet tweet = tweetService.getById(tweetId);
+        for(User u: tweet.getLikes())
+        {
+            if(tweet.getFlags().contains(poster))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    @GET
+    @Path("/checklike")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean checkLike(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
+        User poster = userService.getByName(name);
+        Tweet tweet = tweetService.getById(tweetId);
+        for(User u: tweet.getLikes())
+        {
+            if(tweet.getLikes().contains(poster))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     @POST
     @Path("/like")
     @Produces(MediaType.APPLICATION_JSON)

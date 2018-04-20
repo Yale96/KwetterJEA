@@ -8,7 +8,11 @@ package boundary.rest;
 import DTO.DTOBase;
 import Models.HashTag;
 import Services.HashTagService;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -56,6 +60,25 @@ public class HashTagResource {
         return hashTag;
     }
     
+    @GET
+    @Path("/trends")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTrends() 
+    {
+        LinkedHashMap<String, Long> toStringify = (LinkedHashMap<String, Long>) hashTagService.getTrendss(getAll());
+        List<Entry> entryList = new ArrayList<Entry>(toStringify.entrySet());
+		System.out.println("\n==> Size of Entry list: " + entryList.size());
+		for (Entry temp : entryList) {
+			System.out.println(temp);
+		}
+        List<String> returnList = new ArrayList<>();
+        for(Entry e: entryList)
+        {
+            returnList.add(e.toString());
+        }
+        
+        return Response.ok(returnList).build();
+    }
     
     @POST
     @Path("/add")

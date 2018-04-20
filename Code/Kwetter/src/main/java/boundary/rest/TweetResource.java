@@ -6,6 +6,7 @@
 package boundary.rest;
 
 import DTO.TweetDTO;
+import Interceptors.JWTTokenNeeded;
 import Interceptors.LoggingCheck;
 import Models.HashTag;
 import Models.Profile;
@@ -51,6 +52,19 @@ public class TweetResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<TweetDTO> getAll() {
+        List<TweetDTO> returnList = new ArrayList<>();
+        for(Tweet t: tweetService.getTweets())
+        {
+            returnList.add(new TweetDTO(t));
+        }
+        return returnList;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/gettweetss")
+    @JWTTokenNeeded
+    public List<TweetDTO> getAllToken() {
         List<TweetDTO> returnList = new ArrayList<>();
         for(Tweet t: tweetService.getTweets())
         {

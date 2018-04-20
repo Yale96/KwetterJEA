@@ -95,7 +95,11 @@ public class Tweet implements Serializable {
     public User getOwner() {
         return owner;
     }
-
+    
+    public void setOwnerForStartup(User owner) {
+        this.owner = owner;
+    }
+    
     public void setOwner(User owner) {
         this.owner = owner;
         if(!owner.getTweets().contains(this))

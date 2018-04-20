@@ -14,7 +14,11 @@ import Models.HashTag;
 import Models.Profile;
 import Models.Tweet;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -64,7 +68,32 @@ public class HashTagService {
         return new ArrayList<>();
     }
     
-    
+    public Map<String, Long> getTrendss(List<HashTag> tags)
+    {
+        List<String> searchList = new ArrayList<String>();
+        for(HashTag t: tags)
+        {
+            searchList.add(t.getContent());
+        }
+        
+        Map<String, Long> result =
+                searchList.stream().collect(
+                        Collectors.groupingBy(
+                                Function.identity(), Collectors.counting()
+                        )
+                );
+
+        System.out.println(result);
+        
+         Map<String, Long> finalMap = new LinkedHashMap<>();
+
+        //Sort a map and add to finalMap
+        result.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue()
+                        .reversed()).forEachOrdered(e -> finalMap.put(e.getKey(), e.getValue()));
+        
+        return finalMap;
+    }
     
     public HashTagService(){
 

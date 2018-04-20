@@ -229,6 +229,27 @@ public class UserResource {
    }
    
    @POST
+   @Path("/logins")
+   @Produces(MediaType.APPLICATION_JSON)
+    public Response authenticateUsers(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletResponse response) {
+        try {
+ 
+            // Authenticate the user using the credentials provided
+            User u = authenticate(login, password);
+ 
+            // Issue a token for the user
+            String token = issueToken(login, u.getId());
+ 
+            // Return the token on the response
+            String returnString = token;
+            return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+ 
+        } catch (Exception e) {
+            return Response.status(UNAUTHORIZED).build();
+        }
+    }
+   
+   @POST
    @Path("/login")
    @Produces(MediaType.APPLICATION_JSON)
     public Response authenticateUser(@QueryParam("login") String login, @QueryParam("password") String password, @Context HttpServletResponse response) {

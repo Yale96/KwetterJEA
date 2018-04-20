@@ -169,7 +169,7 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
         if(userName != null && !userName.isEmpty() && password != null && !password.isEmpty())
         {
             User user = new User();
-            Profile p = new Profile("<vul in>", "<vul in>", "<vul in>", "<vul in>", "<vul in>");
+            Profile p = new Profile("<vul in>", "<vul in>", "<vul in>", "<vul in>", "//placehold.it/100");
             Rol role = rolDao.findById(2l);
             user.setUsername(userName);
             user.setPassword(password);

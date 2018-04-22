@@ -94,7 +94,7 @@ public class UserDaoJpa extends DaoFacade<User> implements UserDao {
         if (id >= 0 && idLeider != "") {
             try {
                 User volger = find(id);
-                User leider = find(idLeider);
+                User leider = getByName(idLeider);
                 leider.addFollower(volger);
                 update(volger);
                 update(leider);

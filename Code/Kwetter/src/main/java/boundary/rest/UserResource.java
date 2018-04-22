@@ -8,6 +8,7 @@ package boundary.rest;
 import DTO.ProfileDTO;
 import DTO.UserDTO;
 import Models.Profile;
+import Models.Tweet;
 import Models.User;
 import Services.UserService;
 import Utils.KeyGenerator;
@@ -297,5 +298,21 @@ public class UserResource {
     
     private Date toDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    
+    @GET
+    @Path("/checkfollow")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean checkFlag(@QueryParam("id") long id, @QueryParam("superName") String superName, @Context HttpServletResponse response) {
+        User poster = userService.getById(id);
+        User supert = userService.getByName(superName);
+        for(User u: poster.getSupers())
+        {
+            if(poster.getSupers().contains(supert) || poster.getId() == supert.getId())
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

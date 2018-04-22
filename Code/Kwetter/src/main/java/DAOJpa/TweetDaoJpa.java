@@ -89,6 +89,14 @@ public class TweetDaoJpa extends DaoFacade<Tweet> implements TweetDao {
     }
     
     @Override
+    public Tweet getHighest()
+    {
+        Tweet t = spareUnnecessaryWork("SELECT t from Tweet t ORDER BY t.id DESC LIMIT 1").get(0);
+        String s = "Debug";
+        return t;
+    }
+    
+    @Override
     public List<Tweet> getRecentTweetsByUserId(long id) {
         if (id >= 0)
         {

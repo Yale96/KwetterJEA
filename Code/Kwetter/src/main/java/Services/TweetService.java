@@ -55,6 +55,13 @@ public class TweetService {
         return tweetDao.findById(id);
     }
     
+    
+    public Tweet getHighest()
+    {
+        Tweet t = tweetDao.getHighest();
+        return t;
+    }
+    
     public HashTag pushHashtag(String content) {
         if (tagDao.getByContent(content) != null)
             return tagDao.getByContent(content);

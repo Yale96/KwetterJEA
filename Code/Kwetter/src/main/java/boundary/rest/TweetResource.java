@@ -16,6 +16,7 @@ import Services.ProfileService;
 import Services.TweetService;
 import Services.UserService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -84,6 +85,16 @@ public class TweetResource {
         }
         return Response.ok(returnList).build();
     }
+    
+    @GET
+    @Path("/highest")
+    @Produces(MediaType.APPLICATION_JSON)
+    public TweetDTO getLatestTweet() {
+        List<TweetDTO> tweetList = this.getAll();
+        Collections.reverse(tweetList);
+        TweetDTO t = tweetList.get(0);
+        return t;
+    }
 
     @POST
     @Path("/getMentionedUsers")
@@ -93,7 +104,7 @@ public class TweetResource {
         tweetService.findHashtagsByPureContent(content);
         return Response.ok(tweetService.findMentions(content)).build();
     }
-
+    
     @POST
     @Path("/getPureContent")
     @Produces(MediaType.APPLICATION_JSON)

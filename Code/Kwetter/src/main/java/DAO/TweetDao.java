@@ -28,6 +28,8 @@ public interface TweetDao {
     
     List<Tweet> getRecentTweetsByUserId(long id);
     
+    Tweet getHighest();
+    
     void edit(Tweet tweet);
 
     Tweet findById(Long id);

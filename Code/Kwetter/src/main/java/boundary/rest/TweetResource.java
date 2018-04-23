@@ -88,12 +88,13 @@ public class TweetResource {
     
     @GET
     @Path("/highest")
+    @JWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
-    public TweetDTO getLatestTweet() {
+    public Response getLatestTweet() {
         List<TweetDTO> tweetList = this.getAll();
         Collections.reverse(tweetList);
         TweetDTO t = tweetList.get(0);
-        return t;
+        return Response.ok(t).build();
     }
 
     @POST

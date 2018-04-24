@@ -201,8 +201,10 @@ public class UserResource {
    @Produces(MediaType.APPLICATION_JSON)
    public Response removeFollower(@QueryParam("id") long id, @QueryParam("superName") String superName, @Context HttpServletResponse response)
    {
-       userService.removeFollower(id, superName);
-       return Response.ok(new UserDTO(userService.getById(id))).build();
+        User poster = userService.getById(id);
+        User supert = userService.getByName(superName);
+        userService.removeFollower(poster.getId(), supert.getUsername());
+        return Response.ok(new UserDTO(userService.getById(id))).build();
    }
    
    @GET

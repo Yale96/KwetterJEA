@@ -29,6 +29,13 @@ public class ReplaceInterceptor {
         if (parameters.length > 0) {
             String tweetContent = (String) parameters[1];
             tweetContent = tweetContent.replace("vet", "dik");
+            tweetContent = tweetContent.replace("cool", "gaaf");
+            tweetContent = tweetContent.replace("#vet", "#dik");
+            tweetContent = tweetContent.replace("#cool", "#gaaf");
+            tweetContent = tweetContent.replace("Vet", "Dik");
+            tweetContent = tweetContent.replace("Cool", "Gaaf");
+            tweetContent = tweetContent.replace("#Vet", "#Dik");
+            tweetContent = tweetContent.replace("#Cool", "#Gaaf");
             parameters[1] = tweetContent;
             context.setParameters(parameters);
         }

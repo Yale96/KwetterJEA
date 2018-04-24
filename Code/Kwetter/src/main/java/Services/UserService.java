@@ -64,7 +64,7 @@ public class UserService {
     public void addFollower(long id, String leaderName) {
         User u = userDao.findById(id);
         User ut = userDao.findByName(leaderName);
-        if(u.getId() != ut.getId())
+        if(u.getId() != ut.getId() && !ut.getFollowers().contains(u))
             userDao.addFollower(id, leaderName);
     }
     public void removeFollower(long id, String leaderName) {

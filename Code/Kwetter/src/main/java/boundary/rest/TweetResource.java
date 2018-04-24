@@ -54,21 +54,19 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<TweetDTO> getAll() {
         List<TweetDTO> returnList = new ArrayList<>();
-        for(Tweet t: tweetService.getTweets())
-        {
+        for (Tweet t : tweetService.getTweets()) {
             returnList.add(new TweetDTO(t));
         }
         return returnList;
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/gettweetss")
     @JWTTokenNeeded
     public List<TweetDTO> getAllToken() {
         List<TweetDTO> returnList = new ArrayList<>();
-        for(Tweet t: tweetService.getTweets())
-        {
+        for (Tweet t : tweetService.getTweets()) {
             returnList.add(new TweetDTO(t));
         }
         return returnList;
@@ -79,13 +77,12 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTweetsByContent(@QueryParam("content") String content, @Context HttpServletResponse response) {
         List<TweetDTO> returnList = new ArrayList<TweetDTO>();
-        for(Tweet t: tweetService.getMatchesByContent(content))
-        {
+        for (Tweet t : tweetService.getMatchesByContent(content)) {
             returnList.add(new TweetDTO(t));
         }
         return Response.ok(returnList).build();
     }
-    
+
     @GET
     @Path("/highest")
     @JWTTokenNeeded
@@ -105,7 +102,7 @@ public class TweetResource {
         tweetService.findHashtagsByPureContent(content);
         return Response.ok(tweetService.findMentions(content)).build();
     }
-    
+
     @POST
     @Path("/getPureContent")
     @Produces(MediaType.APPLICATION_JSON)
@@ -121,8 +118,7 @@ public class TweetResource {
     public Response getTweetsByHashtagId(@QueryParam("id") long id, @Context HttpServletResponse response) {
 
         List<TweetDTO> returnList = new ArrayList<TweetDTO>();
-        for(Tweet t: tweetService.getTweetByHashtagId(id))
-        {
+        for (Tweet t : tweetService.getTweetByHashtagId(id)) {
             returnList.add(new TweetDTO(t));
         }
         return Response.ok(returnList).build();
@@ -135,8 +131,7 @@ public class TweetResource {
 
         tweetService.getTweetsByMentionId(name);
         List<TweetDTO> returnList = new ArrayList<>();
-        for(Tweet t: tweetService.getTweetsByMentionId(name))
-        {
+        for (Tweet t : tweetService.getTweetsByMentionId(name)) {
             returnList.add(new TweetDTO(t));
         }
         return Response.ok(returnList).build();
@@ -147,8 +142,7 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTweetsByUserId(@QueryParam("id") long id, @Context HttpServletResponse response) {
         List<TweetDTO> returnList = new ArrayList<TweetDTO>();
-        for(Tweet t : tweetService.getTweetsByUserId(id))
-        {
+        for (Tweet t : tweetService.getTweetsByUserId(id)) {
             returnList.add(new TweetDTO(t));
         }
         return Response.ok(returnList).build();
@@ -159,11 +153,10 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRecentTweetsByUserId(@QueryParam("id") long id, @Context HttpServletResponse response) {
         List<TweetDTO> returnList = new ArrayList<TweetDTO>();
-        for(Tweet t : tweetService.getRecentTweetsByUserId(id))
-        {
+        for (Tweet t : tweetService.getRecentTweetsByUserId(id)) {
             returnList.add(new TweetDTO(t));
         }
-        
+
         return Response.ok(returnList.get(0)).build();
     }
 
@@ -181,8 +174,7 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTrendingTopics(@QueryParam("content") String content, @Context HttpServletResponse response) {
         List<TweetDTO> returnList = new ArrayList<TweetDTO>();
-        for(Tweet t : tweetService.getTrendingToppics(content))
-        {
+        for (Tweet t : tweetService.getTrendingToppics(content)) {
             returnList.add(new TweetDTO(t));
         }
         return Response.ok(returnList).build();
@@ -195,51 +187,43 @@ public class TweetResource {
         Tweet tweet = tweetService.getById(id);
         return tweet;
     }
-    
+
     @GET
     @Path("/checkflag")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean checkFlag(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
-        for(User u: tweet.getLikes())
-        {
-            if(tweet.getFlags().contains(poster))
-            {
+        for (User u : tweet.getLikes()) {
+            if (tweet.getFlags().contains(poster)) {
                 return false;
             }
         }
         return true;
     }
-    
+
     @GET
     @Path("/checklike")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean checkLike(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
-        for(User u: tweet.getLikes())
-        {
-            if(tweet.getLikes().contains(poster))
-            {
+        for (User u : tweet.getLikes()) {
+            if (tweet.getLikes().contains(poster)) {
                 return false;
             }
         }
         return true;
     }
-    
+
     @POST
     @Path("/like")
     @Produces(MediaType.APPLICATION_JSON)
     public Response likeTweet(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
-        for(User u: tweet.getLikes())
-        {
-            if(!tweet.getLikes().contains(poster))
-            {
-                poster.addLike(tweet);
-            }
+        if (!tweet.getLikes().contains(poster)) {
+            poster.addLike(tweet);
         }
         userService.edit(poster);
         tweetService.editTweet(tweet);
@@ -257,19 +241,15 @@ public class TweetResource {
         tweetService.editTweet(tweet);
         //return Response.ok(tweetService.getTweets()).build();
     }
-    
+
     @POST
     @Path("/flag")
     @Produces(MediaType.APPLICATION_JSON)
     public Response flagTweet(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
-        for(User u: tweet.getLikes())
-        {
-            if(!tweet.getFlags().contains(poster))
-            {
-                poster.addFlag(tweet);
-            }
+        if (!tweet.getFlags().contains(poster)) {
+            poster.addFlag(tweet);
         }
         userService.edit(poster);
         tweetService.editTweet(tweet);

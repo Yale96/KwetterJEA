@@ -190,8 +190,10 @@ public class UserResource {
    @Produces(MediaType.APPLICATION_JSON)
    public Response addFollower(@QueryParam("id") long id, @QueryParam("superName") String superName, @Context HttpServletResponse response)
    {
-       userService.addFollower(id, superName);
-       return Response.ok(new UserDTO(userService.getById(id))).build();
+        User poster = userService.getById(id);
+        User supert = userService.getByName(superName);
+        userService.addFollower(poster.getId(), supert.getUsername());
+        return Response.ok(new UserDTO(userService.getById(id))).build();
    }
    
    @POST

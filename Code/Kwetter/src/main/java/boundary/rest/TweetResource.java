@@ -234,7 +234,13 @@ public class TweetResource {
     public Response likeTweet(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
-        poster.addLike(tweet);
+        for(User u: tweet.getLikes())
+        {
+            if(!tweet.getLikes().contains(poster))
+            {
+                poster.addLike(tweet);
+            }
+        }
         userService.edit(poster);
         tweetService.editTweet(tweet);
         return Response.ok(getAll()).build();
@@ -258,7 +264,13 @@ public class TweetResource {
     public Response flagTweet(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
         Tweet tweet = tweetService.getById(tweetId);
-        poster.addFlag(tweet);
+        for(User u: tweet.getLikes())
+        {
+            if(!tweet.getFlags().contains(poster))
+            {
+                poster.addFlag(tweet);
+            }
+        }
         userService.edit(poster);
         tweetService.editTweet(tweet);
         return Response.ok(getAll()).build();

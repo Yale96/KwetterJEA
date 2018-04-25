@@ -244,7 +244,7 @@ public class UserResource {
             User u = authenticate(login, password);
  
             // Issue a token for the user
-            String token = issueToken(login, u.getId());
+            String token = issueToken(login);
  
             // Return the token on the response
             String returnString = token;
@@ -265,7 +265,7 @@ public class UserResource {
             User u = authenticate(login, password);
  
             // Issue a token for the user
-            String token = issueToken(login, u.getId());
+            String token = issueToken(login);
  
             // Return the token on the response
             String returnString = token;
@@ -288,10 +288,10 @@ public class UserResource {
         return user;
     }
 
-    private String issueToken(String login, long id) {
+    private String issueToken(String login) {
         Key key = keyGenerator.generateKey();
         String jwtToken = Jwts.builder()
-                .setSubject(login + ", " + id )
+                .setSubject(login)
                 .setIssuer(uriInfo.getAbsolutePath().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(toDate(LocalDateTime.now().plusMinutes(15L)))

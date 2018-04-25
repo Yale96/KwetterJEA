@@ -19,6 +19,7 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.security.Key;
 import java.util.logging.Logger;
+import javax.ws.rs.core.MultivaluedMap;
 
 /**
  *
@@ -58,6 +59,10 @@ public class JWTTokenNeededFilter implements ContainerRequestFilter {
             // Validate the token
             Key key = keyGenerator.generateKey();
             Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+            MultivaluedMap<String, String> queryParams =  requestContext.getUriInfo().getQueryParameters(true);
+            String pageQuery = queryParams.getFirst("name");
+            String user = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
+            String sss = "Debug";
             logger.info("#### valid token : " + token);
 
         } catch (Exception e) {

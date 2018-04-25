@@ -218,6 +218,7 @@ public class TweetResource {
 
     @POST
     @Path("/like")
+    @JWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response likeTweet(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
@@ -232,6 +233,7 @@ public class TweetResource {
 
     @POST
     @Path("/dislike")
+    @JWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public void dislikeTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
@@ -244,6 +246,7 @@ public class TweetResource {
 
     @POST
     @Path("/flag")
+    @JWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response flagTweet(@QueryParam("name") String name, @QueryParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
@@ -258,6 +261,7 @@ public class TweetResource {
 
     @POST
     @Path("/unflag")
+    @JWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response disflagTweet(@FormParam("name") String name, @FormParam("tweetId") long tweetId, @Context HttpServletResponse response) {
         User poster = userService.getByName(name);
@@ -270,6 +274,7 @@ public class TweetResource {
 
     @POST
     @Path("/post")
+    @JWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTweet(@QueryParam("name") String name, @QueryParam("content") String content) {
         User poster = userService.getByName(name);

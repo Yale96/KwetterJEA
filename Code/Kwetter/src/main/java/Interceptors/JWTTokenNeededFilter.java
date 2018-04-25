@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.security.Key;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -56,15 +57,18 @@ public class JWTTokenNeededFilter implements ContainerRequestFilter {
         String S = "Debug";
 
         try {
-            // Validate the token
             Key key = keyGenerator.generateKey();
-            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
-            MultivaluedMap<String, String> queryParams =  requestContext.getUriInfo().getQueryParameters(true);
+            UriInfo uriInfo = requestContext.getUriInfo();
+            String shit = "debug";
+            MultivaluedMap<String, String> queryParams =  uriInfo.getQueryParameters();
             String pageQuery = queryParams.getFirst("name");
             String user = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
-            String sss = "Debug";
-            logger.info("#### valid token : " + token);
-
+            if(pageQuery.equals(user))
+            {
+                Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+                String sss = "Debug";
+                logger.info("#### valid token : " + token);
+            }
         } catch (Exception e) {
             logger.severe("#### invalid token : " + token);
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());

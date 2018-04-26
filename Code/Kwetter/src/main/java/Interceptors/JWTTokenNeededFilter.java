@@ -69,6 +69,10 @@ public class JWTTokenNeededFilter implements ContainerRequestFilter {
                 String sss = "Debug";
                 logger.info("#### valid token : " + token);
             }
+            else
+            {
+                throw new NotAuthorizedException("Authorization header must be provided");
+            }
         } catch (Exception e) {
             logger.severe("#### invalid token : " + token);
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());

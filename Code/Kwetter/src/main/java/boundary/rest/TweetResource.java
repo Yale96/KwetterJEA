@@ -63,7 +63,6 @@ public class TweetResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/gettweetss")
-    @JWTTokenNeeded
     public List<TweetDTO> getAllToken() {
         List<TweetDTO> returnList = new ArrayList<>();
         for (Tweet t : tweetService.getTweets()) {
@@ -85,7 +84,6 @@ public class TweetResource {
 
     @GET
     @Path("/highest")
-    @JWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLatestTweet() {
         List<TweetDTO> tweetList = this.getAll();

@@ -18,6 +18,7 @@ import Services.UserService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.sse.Sse;
+import javax.ws.rs.sse.SseBroadcaster;
+import javax.ws.rs.sse.SseEventSink;
 
 /**
  *
@@ -49,6 +53,9 @@ public class TweetResource {
 
     @Inject
     private UserService userService;
+    
+    @Context
+    private Sse sse;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,7 +66,29 @@ public class TweetResource {
         }
         return returnList;
     }
+    
+    private volatile SseBroadcaster sseBroadcaster;
 
+    @PostConstruct
+    public void init(){
+        this.sseBroadcaster = sse.newBroadcaster();
+    }
+
+    @GET
+    @Path("/register")
+    @Produces(MediaType.SERVER_SENT_EVENTS)
+    public void register(@Context SseEventSink eventSink){
+        eventSink.send(sse.newEvent("Welcome!"));
+        sseBroadcaster.register(eventSink);
+    }
+
+    @POST
+    @Path("/events")
+    @Produces(MediaType.SERVER_SENT_EVENTS)
+    public void broadcast(@QueryParam("event") String event, @Context HttpServletResponse response){
+        sseBroadcaster.broadcast(sse.newEvent(event));
+    }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/gettweetss")

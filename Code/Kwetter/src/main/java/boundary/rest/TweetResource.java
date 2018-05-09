@@ -306,6 +306,7 @@ public class TweetResource {
     public Response addTweet(@QueryParam("name") String name, @QueryParam("content") String content) {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
+        sseBroadcaster.broadcast(sse.newEvent(content));
         return Response.ok(getAll()).build();
     }
 

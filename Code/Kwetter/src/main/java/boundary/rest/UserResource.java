@@ -42,6 +42,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import javax.ws.rs.core.UriInfo;
@@ -85,7 +86,15 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@QueryParam("name") String name) {
         User user = userService.getByName(name);
-        return Response.ok(new UserDTO(user)).build();
+        Link getFollowing = Link.fromUri("http://localhost:8080/Kwetter/resources/users/getfollowing?id=" + userService.getIdByTheName(name))
+                .rel("get following")
+                .type("GET text/json")
+                .build("localhost", "8080");
+        Link getOwnAndOthers = Link.fromUri("http://localhost:8080/Kwetter/resources/users/OwnAndOthers?id=" + userService.getIdByTheName(name))
+                .rel("get own and others tweets")
+                .type("GET text/json")
+                .build("localhost", "8080");
+        return Response.ok(new UserDTO(user)).links(getFollowing, getOwnAndOthers).build();
     }
     @GET
     @Path("/getProfileByName")

@@ -40,6 +40,8 @@ public class UserDTO {
     
     private String roleDTO;
     
+    private String uri;
+    
     public UserDTO()
     {
         
@@ -49,6 +51,7 @@ public class UserDTO {
     {
         followers = new ArrayList<String>();
         this.id = user.getId();
+        this.uri = user.getUri();
         this.email = user.getEmail();
         this.username = user.getUsername();
         this.profileId = user.getProfile().getId();
@@ -65,12 +68,13 @@ public class UserDTO {
         }
     }
     
-    public UserDTO(long id, int profileDTO, String email, String username, String password, long supersCount, long followersCount, long likesCount, long flagsCount, long mentionsCount, long tweetsCount, String roleDTO)
+    public UserDTO(long id, int profileDTO, String email, String username, String password, long supersCount, long followersCount, String uri, long likesCount, long flagsCount, long mentionsCount, long tweetsCount, String roleDTO)
     {
         this.id = id;
         this.profileId = profileDTO;
         this.email = email;
         this.username = username;
+        this.uri = uri;
         this.password = password;
         this.supersCount = supersCount;
         this.followersCount = followersCount;
@@ -184,6 +188,12 @@ public class UserDTO {
     public void setFollowers(List<String> followers) {
         this.followers = followers;
     }
-    
-    
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 }

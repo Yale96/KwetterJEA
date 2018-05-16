@@ -74,6 +74,8 @@ public class User implements Serializable {
     @JoinColumn(name = "role_name", referencedColumnName = "type")
     private Rol role;
     
+    private String uri;
+    
     public static final String FIND_BY_LOGIN_PASSWORD = "User.findByLoginAndPassword";
     
     public User() {
@@ -195,12 +197,26 @@ public class User implements Serializable {
         this.flags = flags;
     }
     
-    
-    
     public void setTweets(ArrayList<Tweet> tweets) {
         this.tweets = tweets;
     }
 
+    public Rol getRole() {
+        return role;
+    }
+
+    public void setRole(Rol role) {
+        this.role = role;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+         
     public List<User> getSupers() {
         List<User> tempUsers = new ArrayList<>();
         for(User u:supers)

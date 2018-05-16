@@ -64,6 +64,7 @@ public class TweetResource {
         for (Tweet t : tweetService.getTweets()) {
             returnList.add(new TweetDTO(t));
         }
+        sseBroadcaster.broadcast(sse.newEvent("Hello world"));
         return returnList;
     }
     

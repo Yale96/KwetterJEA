@@ -76,6 +76,7 @@ public class Tweet implements Serializable {
             , inverseJoinColumns = @JoinColumn(name = "user_flag_id", referencedColumnName = "id"))
     private List<User> flags;
     
+    private String uri;
     
     public Tweet()
     {
@@ -163,7 +164,15 @@ public class Tweet implements Serializable {
     public void setLikes(ArrayList<User> likes) {
         this.likes = likes;
     }
-    
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+        
     public void addHashTag(HashTag hashTag){
         if(hashTag != null && hashtags != null && !hashtags.contains(hashTag))
         {

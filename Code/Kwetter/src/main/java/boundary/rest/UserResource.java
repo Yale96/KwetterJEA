@@ -8,7 +8,6 @@ package boundary.rest;
 import DTO.ProfileDTO;
 import DTO.UserDTO;
 import Models.Profile;
-import Models.Tweet;
 import Models.User;
 import Services.UserService;
 import Utils.KeyGenerator;
@@ -24,7 +23,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -80,7 +78,7 @@ public class UserResource {
         }
         return returnList;
     }
-
+    
     @GET
     @Path("/single")
     @Produces(MediaType.APPLICATION_JSON)
@@ -96,6 +94,7 @@ public class UserResource {
                 .build("localhost", "8080");
         return Response.ok(new UserDTO(user)).links(getFollowing, getOwnAndOthers).build();
     }
+    
     @GET
     @Path("/getProfileByName")
     @Produces(MediaType.APPLICATION_JSON)

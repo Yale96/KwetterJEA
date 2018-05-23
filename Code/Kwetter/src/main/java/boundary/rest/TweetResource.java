@@ -64,7 +64,6 @@ public class TweetResource {
         for (Tweet t : tweetService.getTweets()) {
             returnList.add(new TweetDTO(t));
         }
-        sseBroadcaster.broadcast(sse.newEvent("Hello world"));
         return returnList;
     }
     
@@ -307,7 +306,7 @@ public class TweetResource {
     public Response addTweet(@QueryParam("name") String name, @QueryParam("content") String content) {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
-        sseBroadcaster.broadcast(sse.newEvent(content));
+        new Thread(() -> sseBroadcaster.broadcast(sse.newEvent("content"))).start();
         return Response.ok(getAll()).build();
     }
 

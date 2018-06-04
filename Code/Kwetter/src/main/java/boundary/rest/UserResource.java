@@ -92,7 +92,11 @@ public class UserResource {
                 .rel("get own and others tweets")
                 .type("GET text/json")
                 .build("localhost", "8080");
-        return Response.ok(new UserDTO(user)).links(getFollowing, getOwnAndOthers).build();
+        Link getProfileByName = Link.fromUri("http://localhost:8080/Kwetter/resources/users/getProfileByName?name=" + name)
+                .rel("get profile")
+                .type("GET text/json")
+                .build("localhost", "8080");
+        return Response.ok(new UserDTO(user)).links(getFollowing, getOwnAndOthers, getProfileByName).build();
     }
     
     @GET

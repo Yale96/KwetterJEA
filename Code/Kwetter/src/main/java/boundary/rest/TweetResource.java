@@ -301,7 +301,6 @@ public class TweetResource {
 
     @POST
     @Path("/post")
-    @JWTTokenNeeded
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTweet(@QueryParam("name") String name, @QueryParam("content") String content) {
         User poster = userService.getByName(name);

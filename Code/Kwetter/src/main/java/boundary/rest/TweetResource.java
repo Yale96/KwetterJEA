@@ -33,6 +33,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.sse.Sse;
@@ -66,14 +67,14 @@ public class TweetResource {
         }
         return returnList;
     }
-    
+     
     private volatile SseBroadcaster sseBroadcaster;
-
+    
     @PostConstruct
     public void init(){
         this.sseBroadcaster = sse.newBroadcaster();
     }
-
+    
     @GET
     @Path("/register")
     @Produces(MediaType.SERVER_SENT_EVENTS)
@@ -81,7 +82,7 @@ public class TweetResource {
         eventSink.send(sse.newEvent("Welcome!"));
         sseBroadcaster.register(eventSink);
     }
-
+    
     @POST
     @Path("/events")
     @Produces(MediaType.SERVER_SENT_EVENTS)
@@ -306,7 +307,15 @@ public class TweetResource {
         User poster = userService.getByName(name);
         tweetService.sendNewTweet(poster.getId(), content);
         new Thread(() -> sseBroadcaster.broadcast(sse.newEvent("content"))).start();
-        return Response.ok(getAll()).build();
+        Link getMentions = Link.fromUri("http://localhost:8080/Kwetter/resources/tweets/getMentionedUsers?content=" + content)
+                .rel("get mentions")
+                .type("GET text/json")
+                .build("localhost", "8080");
+        Link getHashTag = Link.fromUri("http://localhost:8080/Kwetter/resources/tweets/hashtagcontent?content=" + content)
+                .rel("get hashtags")
+                .type("GET text/json")
+                .build("localhost", "8080");
+        return Response.ok(getAll()).links(getMentions, getHashTag).build();
     }
 
     @POST
@@ -314,7 +323,11 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response removeTweet(@QueryParam("id") long id, @Context HttpServletResponse response) {
         tweetService.removeTweet(id);
-        return Response.ok(getAll()).build();
+        Link getTweets = Link.fromUri("http://localhost:8080/Kwetter/resources/tweets")
+                .rel("get tweets to check if removed")
+                .type("GET text/json")
+                .build("localhost", "8080");
+        return Response.ok(getAll()).links(getTweets).build();
     }
 
     @GET
